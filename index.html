@@ -1,0 +1,1533 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Révisions Brevet — Histoire-Géographie-EMC</title>
+  <style>
+    :root{
+      --bg:#fff8f0;
+      --panel:#ffffff;
+      --ink:#273043;
+      --muted:#6b7280;
+      --primary:#9b8cf2;
+      --primary-strong:#7063d5;
+      --secondary:#8ed6d1;
+      --accent:#ffb7c5;
+      --yellow:#ffe8a3;
+      --green:#bdeecf;
+      --blue:#b9dcff;
+      --orange:#ffd0a6;
+      --red:#ffb4b4;
+      --shadow:0 18px 40px rgba(64,48,100,.12);
+      --radius:24px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-rounded, "SF Pro Rounded", "Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 8% 10%, #e6dcff 0, transparent 28%),
+        radial-gradient(circle at 90% 8%, #d8fff5 0, transparent 25%),
+        radial-gradient(circle at 50% 100%, #ffdce5 0, transparent 28%),
+        var(--bg);
+      min-height:100vh;
+    }
+    button,select{font:inherit}
+    .app{max-width:1180px;margin:0 auto;padding:22px;}
+    header{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      margin-bottom:18px;
+    }
+    .brand{display:flex;align-items:center;gap:14px;}
+    .logo{
+      width:58px;height:58px;border-radius:20px;
+      background:linear-gradient(145deg,var(--primary),var(--secondary));
+      display:grid;place-items:center;color:white;font-size:27px;font-weight:900;
+      box-shadow:var(--shadow);
+    }
+    h1{font-size:clamp(1.5rem,4vw,2.4rem);margin:0;line-height:1.05;}
+    .subtitle{margin:6px 0 0;color:var(--muted);font-weight:650;}
+    .top-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;}
+    .btn{
+      border:0;cursor:pointer;border-radius:999px;padding:12px 16px;font-weight:850;
+      color:var(--ink);background:var(--panel);box-shadow:0 10px 28px rgba(38,40,60,.10);
+      transition:.18s ease;display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+    }
+    .btn:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(38,40,60,.14)}
+    .btn.primary{background:linear-gradient(135deg,var(--primary),#c9bfff);color:white;}
+    .btn.danger{background:#fff0f0;color:#a84040;}
+    .btn.small{padding:9px 12px;font-size:.92rem;}
+    .layout{display:grid;grid-template-columns:300px 1fr;gap:18px;align-items:start;}
+    .sidebar,.screen,.card{
+      background:rgba(255,255,255,.82);
+      backdrop-filter:blur(12px);
+      border:1px solid rgba(255,255,255,.88);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .sidebar{padding:16px;position:sticky;top:16px;}
+    .progress-box{background:linear-gradient(145deg,#fff,#f7f5ff);border-radius:22px;padding:14px;margin-bottom:14px;}
+    .progress-line{height:13px;border-radius:999px;background:#eee8ff;overflow:hidden;margin:12px 0 7px;}
+    .progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--secondary));width:0%;transition:.3s ease;}
+    .stat-row{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-weight:750;font-size:.93rem;}
+    .nav-title{font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:900;margin:10px 8px;}
+    .nav{display:grid;gap:8px;}
+    .nav button{
+      width:100%;border:0;background:#fff;border-radius:18px;padding:12px 14px;text-align:left;
+      display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;color:var(--ink);font-weight:850;
+      box-shadow:0 7px 20px rgba(40,38,70,.07);transition:.15s ease;
+    }
+    .nav button:hover,.nav button.active{background:#f3efff;transform:translateX(2px)}
+    .badge{background:#f2f0ff;border-radius:999px;padding:4px 8px;font-size:.78rem;color:var(--primary-strong);font-weight:900;}
+    .screen{padding:20px;min-height:620px;}
+    .hero{
+      border-radius:28px;padding:24px;margin-bottom:18px;
+      background:linear-gradient(135deg,#f1ecff,#e6fff9 48%,#fff0f4);
+      display:grid;grid-template-columns:1.2fr .8fr;gap:14px;align-items:center;
+    }
+    .hero h2{font-size:clamp(1.6rem,4vw,3rem);line-height:1.02;margin:0 0 10px;}
+    .hero p{font-size:1.05rem;color:#4b5563;font-weight:650;line-height:1.5;margin:0 0 16px;}
+    .hero-card{background:white;border-radius:24px;padding:16px;box-shadow:0 12px 34px rgba(52,42,90,.10);}
+    .quick-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;}
+    .quick-stat{background:#faf8ff;border-radius:18px;padding:12px;text-align:center;}
+    .quick-stat strong{display:block;font-size:1.35rem;}
+    .quick-stat span{font-size:.82rem;color:var(--muted);font-weight:800;}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}
+    .chapter-card,.method-card,.timeline-card{
+      background:white;border-radius:24px;padding:16px;border:1px solid #f1eefb;box-shadow:0 12px 30px rgba(47,43,75,.08);
+      cursor:pointer;transition:.18s ease;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;
+    }
+    .chapter-card:hover,.method-card:hover,.timeline-card:hover{transform:translateY(-4px);box-shadow:0 18px 42px rgba(47,43,75,.13)}
+    .chapter-top{display:flex;gap:11px;align-items:flex-start;}
+    .icon{width:46px;height:46px;border-radius:16px;display:grid;place-items:center;font-size:23px;flex:0 0 auto;}
+    .theme-history{background:#ffe3db}.theme-geo{background:#def7ec}.theme-emc{background:#e9e3ff}.theme-method{background:#fff0bd}
+    .chapter-card h3,.card h3{margin:0 0 7px;font-size:1.06rem;line-height:1.2;}
+    .chapter-card p{margin:0;color:var(--muted);line-height:1.35;font-weight:620;font-size:.94rem;}
+    .chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px;}
+    .chip{border-radius:999px;background:#f7f5ff;color:#6458c7;padding:6px 10px;font-size:.78rem;font-weight:900;}
+    .screen-title{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;}
+    .screen-title h2{margin:0;font-size:clamp(1.4rem,3vw,2.2rem);}
+    .screen-title p{margin:6px 0 0;color:var(--muted);font-weight:650;line-height:1.45;}
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0;}
+    .tab{border:0;background:white;border-radius:999px;padding:10px 14px;font-weight:900;cursor:pointer;box-shadow:0 7px 20px rgba(40,38,70,.07);}
+    .tab.active{background:var(--primary);color:white;}
+    .content-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    .card{padding:18px;}
+    .summary-list{padding-left:20px;margin:9px 0 0;line-height:1.5;}
+    .summary-list li{margin:7px 0;}
+    .notion{display:flex;gap:10px;align-items:flex-start;background:#fbfaff;border-radius:18px;padding:12px;margin:8px 0;}
+    .notion strong{display:block;margin-bottom:3px;}
+    .flashcard{
+      min-height:250px;border-radius:28px;background:linear-gradient(145deg,#ffffff,#f7f5ff);display:grid;place-items:center;text-align:center;padding:24px;
+      box-shadow:inset 0 0 0 1px #eee8ff;cursor:pointer;position:relative;overflow:hidden;
+    }
+    .flashcard:before{content:"";position:absolute;inset:auto -40px -70px auto;width:170px;height:170px;border-radius:50%;background:#dffaf5;}
+    .flashcard .label{color:var(--primary-strong);font-size:.85rem;font-weight:950;letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px;}
+    .flashcard .text{font-size:1.35rem;font-weight:900;line-height:1.25;position:relative;}
+    .flashcard .hint{position:relative;margin-top:16px;color:var(--muted);font-weight:750;font-size:.9rem;}
+    .flash-actions{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;}
+    .quiz-setup{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+    label{display:grid;gap:6px;color:var(--muted);font-weight:900;}
+    select{border:0;background:white;border-radius:16px;padding:12px 14px;box-shadow:0 7px 20px rgba(40,38,70,.08);color:var(--ink);font-weight:800;}
+    .question-box{background:#fff;border-radius:24px;padding:18px;box-shadow:0 12px 30px rgba(47,43,75,.08);}
+    .question-head{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-weight:900;margin-bottom:10px;}
+    .question-text{font-size:1.3rem;font-weight:950;line-height:1.25;margin:0 0 16px;}
+    .answers{display:grid;gap:10px;}
+    .answer{
+      border:2px solid transparent;background:#f9f8ff;border-radius:18px;padding:13px 14px;text-align:left;cursor:pointer;font-weight:850;color:var(--ink);transition:.15s ease;
+    }
+    .answer:hover{border-color:#ddd5ff;transform:translateY(-1px)}
+    .answer.correct{background:#e5faed;border-color:#8bd7a2;}
+    .answer.wrong{background:#fff0f0;border-color:#ffaaaa;}
+    .feedback{display:none;margin-top:14px;border-radius:18px;padding:13px;background:#f6f4ff;font-weight:750;line-height:1.45;}
+    .feedback.show{display:block;}
+    .score-card{text-align:center;padding:30px;background:linear-gradient(135deg,#f1ecff,#e5fff8);border-radius:28px;}
+    .score-card strong{font-size:3rem;display:block;}
+    .timeline{display:grid;gap:10px;}
+    .timeline-item{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:start;background:white;border-radius:18px;padding:13px;box-shadow:0 8px 22px rgba(47,43,75,.07);}
+    .date-pill{background:#f1ecff;color:#5a4ac7;border-radius:999px;padding:7px 10px;font-weight:950;text-align:center;}
+    .method-card{cursor:default;min-height:unset;}
+    .method-card h3{margin:0 0 8px;}
+    .method-card ul{margin:0;padding-left:18px;line-height:1.45;color:#4b5563;font-weight:650;}
+    .empty{background:white;border-radius:24px;padding:22px;text-align:center;color:var(--muted);font-weight:750;}
+    footer{color:var(--muted);font-size:.88rem;font-weight:650;margin-top:14px;text-align:center;}
+    .hidden{display:none!important}
+
+    .theme-assistant{background:#dff4ff}
+    .assistant-shell{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:14px;align-items:start;}
+    .assistant-panel{background:white;border-radius:24px;padding:16px;box-shadow:0 12px 30px rgba(47,43,75,.08);}
+    .assistant-messages{min-height:360px;max-height:560px;overflow:auto;display:grid;gap:12px;padding:6px;scroll-behavior:smooth;}
+    .msg{display:flex;gap:10px;align-items:flex-start;}
+    .msg.user{justify-content:flex-end;}
+    .bubble{max-width:88%;border-radius:22px;padding:13px 15px;line-height:1.45;font-weight:650;box-shadow:0 7px 20px rgba(40,38,70,.07);}
+    .msg.user .bubble{background:#f1ecff;color:#3d337e;border-bottom-right-radius:8px;}
+    .msg.bot .bubble{background:#fbfcff;color:var(--ink);border:1px solid #edf0ff;border-bottom-left-radius:8px;}
+    .bubble h3{margin:0 0 8px;font-size:1.02rem;}
+    .bubble p{margin:7px 0;}
+    .bubble ul{margin:8px 0 0;padding-left:20px;}
+    .bubble li{margin:5px 0;}
+    .assistant-input{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:12px;}
+    .assistant-input input{width:100%;border:0;background:#f7f5ff;border-radius:18px;padding:14px 16px;color:var(--ink);font-weight:750;box-shadow:inset 0 0 0 1px #ebe7ff;}
+    .assistant-input input:focus{outline:3px solid #ded6ff;background:white;}
+    .quick-help{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0;}
+    .quick-help button,.assistant-action{border:0;background:#f7f5ff;color:#5a4ac7;border-radius:999px;padding:8px 11px;font-size:.86rem;font-weight:900;cursor:pointer;transition:.15s ease;}
+    .quick-help button:hover,.assistant-action:hover{transform:translateY(-1px);background:#eee9ff;}
+    .assistant-side{display:grid;gap:12px;}
+    .assistant-side .card{padding:14px;}
+    .assistant-side h3{font-size:1rem;margin:0 0 8px;}
+    .assistant-side p{margin:0;color:var(--muted);font-weight:650;line-height:1.4;font-size:.93rem;}
+    .assistant-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+    .assistant-sources{margin-top:9px;color:var(--muted);font-size:.86rem;font-weight:750;}
+    @media (max-width:900px){
+      .layout{grid-template-columns:1fr}.sidebar{position:static}.hero{grid-template-columns:1fr}.grid,.content-grid,.assistant-shell{grid-template-columns:1fr}.app{padding:14px}.screen{padding:14px}.quiz-setup{grid-template-columns:1fr}.timeline-item{grid-template-columns:1fr}.top-actions{justify-content:flex-start}header{align-items:flex-start;flex-direction:column}.quick-stats{grid-template-columns:repeat(3,1fr)}
+    }
+    @media (max-width:520px){.quick-stats{grid-template-columns:1fr}.btn{width:100%;justify-content:center}.toolbar .tab{flex:1}.screen-title{flex-direction:column}.logo{width:50px;height:50px}.chapter-card{min-height:unset}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="brand">
+        <div class="logo">HG</div>
+        <div>
+          <h1>Révisions Brevet</h1>
+          <p class="subtitle">Histoire • Géographie • EMC</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="btn primary" id="homeBtn">Accueil</button>
+        <button class="btn danger" id="resetBtn">Réinitialiser</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar">
+        <div class="progress-box">
+          <strong>Progression générale</strong>
+          <div class="progress-line"><div class="progress-fill" id="globalProgress"></div></div>
+          <div class="stat-row"><span id="doneCount">0 chapitre</span><span id="avgScore">0%</span></div>
+        </div>
+        <div class="nav-title">Menu</div>
+        <nav class="nav" id="sideNav"></nav>
+      </aside>
+
+      <section class="screen" id="screen"></section>
+    </main>
+    <footer>Application autonome : les résultats sont enregistrés uniquement dans ce navigateur.</footer>
+  </div>
+
+  <script>
+  // ===============================
+  // ZONE FACILE À MODIFIER
+  // Tu peux ajouter/modifier des chapitres, flashcards et questions ici.
+  // ===============================
+  const APP_DATA = {
+    categories: [
+      { id:'home', label:'Accueil', icon:'🏠' },
+      { id:'history', label:'Histoire', icon:'📜' },
+      { id:'geo', label:'Géographie', icon:'🗺️' },
+      { id:'emc', label:'EMC', icon:'⚖️' },
+      { id:'methods', label:'Méthodes brevet', icon:'🧠' },
+      { id:'markers', label:'Repères', icon:'📍' },
+      { id:'assistant', label:'Assistant révision', icon:'💬' }
+    ],
+    chapters: [
+      {
+        id:'h1', theme:'history', icon:'🌍', title:'Civils et militaires dans la Première Guerre mondiale',
+        intro:'Comprendre une guerre totale qui mobilise les soldats, les civils, l’économie et les sociétés européennes.',
+        keywords:['guerre totale','tranchées','violence de masse','génocide arménien'],
+        summary:[
+          'La Première Guerre mondiale oppose les grandes puissances européennes et devient une guerre mondiale.',
+          'Les soldats vivent une violence extrême dans les tranchées : bombardements, gaz, assauts, peur permanente.',
+          'Les civils sont mobilisés dans l’économie de guerre et subissent pénuries, propagande et bombardements.',
+          'Le génocide des Arméniens montre que la guerre touche aussi les populations civiles par des violences de masse.',
+          'Le conflit bouleverse l’Europe : millions de morts, sociétés traumatisées, nouveaux États et tensions durables.'
+        ],
+        cards:[
+          ['Guerre totale','Guerre qui mobilise toute la société : soldats, civils, économie, science, propagande et État.'],
+          ['Tranchées','Fossés creusés où les soldats vivent et combattent sur le front, notamment sur le front de l’Ouest.'],
+          ['Violence de masse','Violence extrême touchant un très grand nombre de personnes, militaires ou civiles.'],
+          ['Génocide arménien','Extermination organisée des Arméniens par l’Empire ottoman à partir de 1915.'],
+          ['Verdun','Bataille de 1916 devenue un symbole de la violence des combats.'],
+          ['Arrière','Espace éloigné du front où les civils participent à l’effort de guerre.']
+        ],
+        quizA:[
+          ['Que signifie “guerre totale” ?','Une guerre qui mobilise toute la société',['Une guerre courte','Une guerre sans civils','Une guerre seulement navale'],'La guerre totale mobilise les soldats, les civils, l’économie, la propagande et l’État.','Parfait, tu as compris l’idée centrale du chapitre !'],
+          ['Où les soldats combattent-ils principalement sur le front de l’Ouest ?','Dans les tranchées',['Dans les palais','Dans les usines','Dans les colonies uniquement'],'Les tranchées deviennent le symbole de la guerre de position.','Bien joué, c’est un repère essentiel.'],
+          ['Quelle bataille de 1916 symbolise la violence de masse ?','Verdun',['Waterloo','Stalingrad','Austerlitz'],'Verdun est une bataille très meurtrière de la Première Guerre mondiale.','Très bon réflexe chronologique.'],
+          ['Quel groupe est victime d’un génocide dans l’Empire ottoman ?','Les Arméniens',['Les Belges','Les Italiens','Les Espagnols'],'Le génocide arménien commence en 1915.','Exact, c’est une notion importante.'],
+          ['Quel rôle jouent les civils à l’arrière ?','Ils participent à l’effort de guerre',['Ils ne sont pas concernés','Ils quittent tous l’Europe','Ils combattent tous au front'],'Les civils produisent, financent, subissent la propagande et les pénuries.','Oui, tu vois bien que la guerre dépasse le front.'],
+          ['Quelle expression désigne la mobilisation économique pour la guerre ?','L’économie de guerre',['La mondialisation','Le libre-échange','La décolonisation'],'Les usines et les ressources sont orientées vers les besoins militaires.','Très bien.'],
+          ['Quelle période correspond à la Première Guerre mondiale ?','1914-1918',['1939-1945','1789-1799','1947-1991'],'La guerre commence en 1914 et se termine par l’armistice de 1918.','Super, repère maîtrisé.'],
+          ['Pourquoi parle-t-on de sociétés traumatisées après 1918 ?','À cause des millions de morts et des destructions',['À cause de la prospérité générale','À cause de la paix immédiate partout','À cause de l’absence de pertes'],'Le bilan humain et matériel est immense.','Très bonne réponse.']
+        ],
+        quizB:[
+          ['Dans un développement construit, quelle problématique convient le mieux ?','Comment la Première Guerre mondiale transforme-t-elle les sociétés ?',['Quel est le meilleur pays européen ?','Pourquoi la guerre est-elle amusante ?','Combien coûte une arme ?'],'Une bonne problématique porte sur les transformations et la mobilisation.','Très bon choix de méthode.'],
+          ['Dans un document de propagande, quel élément faut-il identifier ?','Le message que l’auteur veut faire passer',['La couleur préférée du soldat','Le prix du papier','La météo du jour'],'La propagande cherche à influencer l’opinion.','Excellent réflexe d’analyse de document.'],
+          ['Quelle idée peut servir d’argument dans une rédaction ?','Les civils sont mobilisés à l’arrière',['Les civils ne travaillent jamais','La guerre ne touche pas l’économie','Les combats sont uniquement sportifs'],'C’est un argument clair pour montrer la guerre totale.','Bien joué, c’est utilisable dans une copie.'],
+          ['Quel exemple précis peut illustrer la violence de masse ?','La bataille de Verdun',['La construction européenne','La chute du mur de Berlin','Le traité de Maastricht'],'Verdun illustre l’intensité des combats et le nombre de victimes.','Très bon exemple.'],
+          ['Quelle phrase est la plus adaptée à une conclusion ?','La Première Guerre mondiale bouleverse durablement l’Europe.',['Voilà c’est fini.','Je n’ai pas aimé ce chapitre.','Les tranchées sont anciennes.'],'Une conclusion doit répondre clairement au sujet.','Oui, conclusion propre et efficace.']
+        ]
+      },
+      {
+        id:'h2', theme:'history', icon:'⚡', title:'Démocraties fragilisées et totalitarismes dans l’entre-deux-guerres',
+        intro:'Comprendre comment les crises favorisent la montée des régimes totalitaires et fragilisent les démocraties.',
+        keywords:['totalitarisme','URSS stalinienne','Allemagne nazie','Front populaire'],
+        summary:[
+          'Après 1918, l’Europe est affaiblie par les crises économiques, sociales et politiques.',
+          'En URSS, Staline met en place un régime totalitaire fondé sur le parti unique, la terreur et la collectivisation.',
+          'En Allemagne, Hitler arrive au pouvoir en 1933 et impose le nazisme, raciste, antisémite et dictatorial.',
+          'Les régimes totalitaires contrôlent la population par la propagande, la répression et l’encadrement de la jeunesse.',
+          'En France, la démocratie résiste mais connaît des tensions, notamment dans les années 1930.'
+        ],
+        cards:[
+          ['Régime totalitaire','Dictature qui cherche à contrôler totalement la société et les individus.'],
+          ['Propagande','Moyens utilisés pour influencer l’opinion et imposer les idées du régime.'],
+          ['Staline','Dirigeant de l’URSS qui met en place une dictature totalitaire.'],
+          ['Hitler','Chef du parti nazi, chancelier allemand en 1933, puis dictateur.'],
+          ['Antisémitisme','Hostilité et haine envers les Juifs.'],
+          ['Front populaire','Gouvernement français de gauche arrivé au pouvoir en 1936.']
+        ],
+        quizA:[
+          ['Qu’est-ce qu’un régime totalitaire ?','Une dictature qui contrôle toute la société',['Une démocratie directe','Un régime sans État','Une monarchie parlementaire'],'Le totalitarisme veut contrôler les opinions, les comportements et la vie sociale.','Exact, notion fondamentale.'],
+          ['Quel dirigeant impose un régime totalitaire en URSS ?','Staline',['Churchill','De Gaulle','Kennedy'],'Staline dirige l’URSS et impose terreur, propagande et parti unique.','Bien joué.'],
+          ['En quelle année Hitler arrive-t-il au pouvoir ?','1933',['1918','1945','1989'],'Hitler est nommé chancelier en Allemagne en 1933.','Repère validé.'],
+          ['Quelle idéologie est au cœur du nazisme ?','Le racisme et l’antisémitisme',['Le pacifisme absolu','L’égalité démocratique','Le pluralisme politique'],'Le nazisme repose sur une idéologie raciste et antisémite.','Très bien.'],
+          ['Quel moyen permet de contrôler les esprits ?','La propagande',['Le suffrage libre','La liberté de la presse','La séparation des pouvoirs'],'La propagande diffuse les idées du régime et glorifie le chef.','Bonne réponse.'],
+          ['Que signifie parti unique ?','Un seul parti politique autorisé',['Tous les partis sont autorisés','Aucun parti n’existe','Chaque ville choisit son parti'],'Les régimes totalitaires interdisent le pluralisme politique.','Oui, c’est clair.'],
+          ['Quel gouvernement arrive au pouvoir en France en 1936 ?','Le Front populaire',['Le régime de Vichy','Le Consulat','La Commune'],'Le Front populaire mène des réformes sociales.','Très bon repère.'],
+          ['Quel contexte favorise les extrêmes dans les années 1930 ?','Les crises économiques et sociales',['Une paix parfaite','Une croissance sans chômage','La disparition des tensions'],'Les crises fragilisent les démocraties et favorisent les partis extrêmes.','Exact.']
+        ],
+        quizB:[
+          ['Quel exemple illustre la terreur stalinienne ?','Les purges et le Goulag',['La sécurité sociale','Le traité de Rome','L’appel du 18 juin'],'La terreur sert à éliminer les opposants réels ou supposés.','Très bon exemple.'],
+          ['Quel document peut servir à étudier un totalitarisme ?','Une affiche de propagande',['Une carte météo','Un menu de cantine','Une facture de train'],'L’affiche montre les symboles, le message et l’image du chef.','Bon réflexe de brevet.'],
+          ['Quelle phrase convient pour comparer nazisme et stalinisme ?','Les deux sont des régimes totalitaires, mais leurs idéologies diffèrent.',['Ce sont deux démocraties identiques.','Ils n’utilisent jamais la violence.','Ils défendent le pluralisme.'],'On peut comparer les méthodes de contrôle tout en distinguant les idéologies.','Excellent raisonnement.'],
+          ['Que doit-on éviter dans une rédaction sur les totalitarismes ?','Tout mélanger sans dates ni exemples',['Définir les notions','Utiliser des exemples précis','Organiser en paragraphes'],'Les dates, notions et exemples sont indispensables.','Bien vu.'],
+          ['Quelle notion relie propagande, police politique et jeunesse encadrée ?','Le contrôle de la population',['La décentralisation','La mondialisation','L’aménagement du territoire'],'Ces moyens servent tous à contrôler la société.','Très bon lien.']
+        ]
+      },
+      {
+        id:'h3', theme:'history', icon:'🕊️', title:'La Seconde Guerre mondiale, une guerre d’anéantissement',
+        intro:'Comprendre la violence extrême du conflit, les génocides et la volonté de détruire l’ennemi.',
+        keywords:['guerre d’anéantissement','Shoah','génocide','camps'],
+        summary:[
+          'La Seconde Guerre mondiale oppose les Alliés aux puissances de l’Axe entre 1939 et 1945.',
+          'C’est une guerre d’anéantissement : l’objectif est de détruire l’ennemi, ses forces, ses villes et parfois ses populations.',
+          'Les civils sont massivement touchés par les bombardements, massacres, déplacements et pénuries.',
+          'Les nazis organisent le génocide des Juifs d’Europe, appelé Shoah, ainsi que le génocide des Tsiganes.',
+          'La guerre se termine en Europe en mai 1945 et en Asie en septembre 1945.'
+        ],
+        cards:[
+          ['Guerre d’anéantissement','Guerre menée pour détruire totalement l’ennemi, y compris les civils.'],
+          ['Shoah','Génocide des Juifs d’Europe organisé par les nazis.'],
+          ['Génocide','Destruction volontaire et organisée d’un groupe humain.'],
+          ['Camps d’extermination','Lieux créés pour assassiner massivement, notamment par gazage.'],
+          ['Alliés','Coalition qui combat l’Axe, avec notamment Royaume-Uni, URSS, États-Unis et France libre.'],
+          ['Axe','Alliance de l’Allemagne nazie, de l’Italie fasciste et du Japon militariste.']
+        ],
+        quizA:[
+          ['Quelle période correspond à la Seconde Guerre mondiale ?','1939-1945',['1914-1918','1947-1991','1789-1799'],'Le conflit mondial commence en 1939 et se termine en 1945.','Repère solide.'],
+          ['Que signifie “guerre d’anéantissement” ?','Une guerre qui vise à détruire totalement l’ennemi',['Une guerre limitée','Une guerre sans civils','Une guerre uniquement économique'],'Le conflit vise aussi les villes et les populations civiles.','Très bien.'],
+          ['Comment appelle-t-on le génocide des Juifs d’Europe ?','La Shoah',['La Guerre froide','La décolonisation','La Résistance'],'La Shoah est le génocide organisé par les nazis.','Exact.'],
+          ['Quel pays appartient aux puissances de l’Axe ?','L’Allemagne nazie',['Les États-Unis','Le Royaume-Uni','L’URSS après 1941'],'L’Axe regroupe notamment Allemagne nazie, Italie fasciste et Japon.','Bonne réponse.'],
+          ['Quel pays rejoint les Alliés après l’attaque de Pearl Harbor ?','Les États-Unis',['L’Espagne','La Suisse','Le Portugal'],'Les États-Unis entrent en guerre en 1941.','Très bon repère.'],
+          ['Quel lieu sert à assassiner massivement les victimes des nazis ?','Les camps d’extermination',['Les parlements','Les universités','Les tribunaux civils'],'Les camps d’extermination sont au cœur du génocide.','Oui.'],
+          ['Qui est aussi victime d’un génocide par les nazis ?','Les Tsiganes',['Les Vikings','Les Gaulois','Les Romains'],'Les Tsiganes sont aussi ciblés par la politique génocidaire nazie.','Très bien.'],
+          ['Quand la guerre se termine-t-elle en Europe ?','Mai 1945',['Juin 1940','Novembre 1918','Décembre 1991'],'L’Allemagne capitule en mai 1945.','Repère maîtrisé.']
+        ],
+        quizB:[
+          ['Quel exemple montre que les civils sont touchés ?','Les bombardements de villes',['Les élections libres','Les vacances scolaires','La disparition des armées'],'Les bombardements visent des centres urbains et industriels.','Très bon exemple.'],
+          ['Dans un document sur Auschwitz, quelle notion mobiliser ?','Génocide',['Croissance urbaine','Décentralisation','Citoyenneté européenne'],'Auschwitz est un symbole de la Shoah et des camps d’extermination.','Exact.'],
+          ['Quelle phrase de développement construit est la plus juste ?','La Seconde Guerre mondiale est marquée par une violence extrême contre soldats et civils.',['La guerre est peu meurtrière.','Les civils sont toujours protégés.','La guerre ne concerne que l’Europe.'],'Cette phrase annonce clairement l’idée de guerre d’anéantissement.','Très bonne formulation.'],
+          ['Pourquoi faut-il utiliser des exemples précis ?','Pour prouver les arguments',['Pour faire plus long seulement','Pour éviter les dates','Pour remplacer l’introduction'],'Les exemples montrent que tu maîtrises le cours.','Bien vu.'],
+          ['Quel plan simple fonctionne pour ce chapitre ?','Violence militaire / violence contre les civils / génocides',['Couleurs / formes / sons','Nord / Sud / Est sans logique','Opinion personnelle / conclusion'],'Ce plan répond à la notion de guerre d’anéantissement.','Excellent plan de brevet.']
+        ]
+      },
+      {
+        id:'h4', theme:'history', icon:'🇫🇷', title:'La France défaite et occupée : Vichy, collaboration et Résistance',
+        intro:'Comprendre la défaite de 1940, le régime de Vichy, la collaboration et les différentes formes de résistance.',
+        keywords:['Vichy','collaboration','Résistance','France libre'],
+        summary:[
+          'En 1940, la France est vaincue par l’Allemagne nazie et signe l’armistice.',
+          'Le maréchal Pétain dirige le régime de Vichy, autoritaire, antisémite et engagé dans la collaboration.',
+          'La collaboration signifie l’aide apportée à l’occupant allemand.',
+          'De Gaulle refuse la défaite avec l’appel du 18 juin 1940 et organise la France libre.',
+          'Les résistants agissent par renseignement, sabotage, presse clandestine et lutte armée.'
+        ],
+        cards:[
+          ['Régime de Vichy','Régime autoritaire dirigé par Pétain après la défaite de 1940.'],
+          ['Collaboration','Politique d’aide à l’Allemagne nazie menée par Vichy.'],
+          ['Résistance','Actions menées contre l’occupant allemand et le régime de Vichy.'],
+          ['France libre','Organisation de résistance extérieure dirigée par De Gaulle.'],
+          ['Appel du 18 juin','Discours de De Gaulle appelant à continuer le combat.'],
+          ['CNR','Conseil national de la Résistance, qui unifie des mouvements résistants.']
+        ],
+        quizA:[
+          ['Qui dirige le régime de Vichy ?','Pétain',['De Gaulle','Churchill','Jean Moulin'],'Pétain obtient les pleins pouvoirs et met en place Vichy.','Très bien.'],
+          ['Que se passe-t-il en juin 1940 ?','La France est vaincue et l’armistice est signé',['La guerre froide commence','Le mur de Berlin tombe','L’Union européenne est créée'],'La défaite de 1940 provoque l’occupation et Vichy.','Bon repère.'],
+          ['Qui lance l’appel du 18 juin 1940 ?','De Gaulle',['Pétain','Staline','Hitler'],'De Gaulle appelle à continuer le combat depuis Londres.','Exact.'],
+          ['Que signifie collaboration ?','Aider l’occupant allemand',['Résister à l’occupant','Créer l’ONU','Libérer Paris seul'],'Vichy collabore avec l’Allemagne nazie.','Bonne réponse.'],
+          ['Quelle action peut être une forme de résistance ?','Saboter une voie ferrée',['Dénoncer des résistants','Appliquer les lois de Vichy','Aider l’occupant'],'Les sabotages gênent l’armée allemande.','Très bon exemple.'],
+          ['Quelle organisation cherche à unifier la Résistance intérieure ?','Le CNR',['L’OTAN','La CEE','La SDN'],'Le Conseil national de la Résistance joue un rôle important.','Oui.'],
+          ['Quel caractère décrit le régime de Vichy ?','Autoritaire et antisémite',['Démocratique et pluraliste','Communiste et soviétique','Européen et fédéral'],'Vichy remet en cause la République et adopte des lois antisémites.','Très bien.'],
+          ['Que désigne la France libre ?','La résistance extérieure autour de De Gaulle',['Le régime de Vichy','L’Allemagne occupée','La zone interdite uniquement'],'La France libre poursuit le combat aux côtés des Alliés.','Repère validé.']
+        ],
+        quizB:[
+          ['Quel exemple illustre la collaboration de Vichy ?','Les lois antisémites et la police aidant les rafles',['Le droit de vote des femmes','La sécurité sociale','La construction européenne'],'Vichy participe à la persécution des Juifs.','Très bon exemple.'],
+          ['Dans une réponse, pourquoi opposer Pétain et De Gaulle ?','Ils incarnent deux choix face à la défaite',['Ils dirigent le même mouvement','Ils sont tous deux chefs nazis','Ils créent ensemble l’UE'],'Pétain choisit l’armistice et la collaboration ; De Gaulle appelle à résister.','Excellent raisonnement.'],
+          ['Quelle phrase est adaptée pour une introduction ?','Après la défaite de 1940, les Français sont confrontés à l’occupation, à la collaboration et à la résistance.',['La France gagne immédiatement la guerre.','Ce chapitre parle seulement de géographie.','Vichy est une démocratie complète.'],'Elle présente le contexte et les enjeux.','Très bonne formulation.'],
+          ['Quel document peut montrer la propagande de Vichy ?','Une affiche glorifiant Pétain',['Une carte des métropoles','Un graphique climatique','Une photo de l’euro'],'Vichy utilise la propagande pour imposer ses valeurs.','Bon réflexe.'],
+          ['Quel exemple de résistant est souvent associé au CNR ?','Jean Moulin',['Napoléon','Jules Ferry','Louis XIV'],'Jean Moulin participe à l’unification de la Résistance intérieure.','Très bien.']
+        ]
+      },
+      {
+        id:'h5', theme:'history', icon:'🌐', title:'Le monde depuis 1945 : Guerre froide, décolonisation, Europe',
+        intro:'Réviser les grands bouleversements du monde après 1945 : monde bipolaire, indépendances, construction européenne et nouveaux conflits.',
+        keywords:['Guerre froide','décolonisation','ONU','Union européenne'],
+        summary:[
+          'Après 1945, l’ONU est créée pour maintenir la paix et éviter un nouveau conflit mondial.',
+          'Le monde devient bipolaire : les États-Unis et l’URSS s’opposent pendant la Guerre froide.',
+          'De nombreuses colonies deviennent indépendantes en Asie et en Afrique.',
+          'La construction européenne commence pour garantir la paix et favoriser la coopération économique.',
+          'Après 1989-1991, le monde change : fin de la Guerre froide, nouveaux conflits et nouvelles puissances.'
+        ],
+        cards:[
+          ['ONU','Organisation internationale créée en 1945 pour maintenir la paix.'],
+          ['Guerre froide','Opposition idéologique et géopolitique entre États-Unis et URSS sans guerre directe entre eux.'],
+          ['Monde bipolaire','Monde organisé autour de deux superpuissances rivales.'],
+          ['Décolonisation','Processus par lequel une colonie devient indépendante.'],
+          ['Traité de Rome','Traité de 1957 créant la CEE.'],
+          ['Chute du mur de Berlin','Événement de 1989 symbolisant la fin de la division Est-Ouest.']
+        ],
+        quizA:[
+          ['Quelle organisation est créée en 1945 pour maintenir la paix ?','L’ONU',['L’Union européenne','L’OTAN uniquement','Le Front populaire'],'L’ONU naît après la Seconde Guerre mondiale.','Très bien.'],
+          ['Quelles sont les deux superpuissances de la Guerre froide ?','États-Unis et URSS',['France et Espagne','Italie et Japon','Chine et Portugal'],'Le monde est organisé autour de deux blocs rivaux.','Exact.'],
+          ['Que signifie décolonisation ?','L’accès d’une colonie à l’indépendance',['La création d’une métropole','La chute d’un mur','La fin des villes'],'La décolonisation transforme l’Asie et l’Afrique.','Bonne réponse.'],
+          ['Quel traité lance la CEE en 1957 ?','Le traité de Rome',['Le traité de Versailles','Le traité de Maastricht uniquement','Le traité de Verdun'],'Le traité de Rome est un repère majeur de la construction européenne.','Repère maîtrisé.'],
+          ['Quel événement a lieu en 1989 ?','La chute du mur de Berlin',['La création de l’ONU','Le début de la Première Guerre mondiale','La bataille de Verdun'],'La chute du mur symbolise l’effondrement du bloc de l’Est.','Très bien.'],
+          ['Quand l’URSS disparaît-elle ?','1991',['1945','1957','2002'],'La disparition de l’URSS marque la fin de la Guerre froide.','Excellent repère.'],
+          ['Quel continent est fortement touché par la décolonisation après 1945 ?','L’Afrique',['L’Antarctique','L’Europe uniquement','L’Océanie uniquement'],'De nombreux États africains deviennent indépendants.','Oui.'],
+          ['Quel objectif initial porte la construction européenne ?','Maintenir la paix par la coopération',['Relancer les guerres européennes','Supprimer tous les États','Créer un empire colonial'],'La coopération franco-allemande et économique doit éviter un nouveau conflit.','Très bon raisonnement.']
+        ],
+        quizB:[
+          ['Quel exemple illustre la Guerre froide en Europe ?','La division de Berlin',['La Révolution française','Le génocide arménien','La conquête de l’Ouest'],'Berlin est un lieu symbolique de l’affrontement Est-Ouest.','Très bon exemple.'],
+          ['Quelle phrase est correcte ?','La Guerre froide oppose deux blocs sans affrontement militaire direct entre États-Unis et URSS.',['Les États-Unis et l’URSS sont toujours alliés après 1945.','La Guerre froide est une guerre antique.','Elle ne concerne que la France.'],'La rivalité passe par crises, propagande, alliances et conflits indirects.','Très bien formulé.'],
+          ['Pour traiter “le monde depuis 1945”, quel plan est logique ?','ONU et Guerre froide / décolonisation / construction européenne et monde actuel',['Histoire personnelle / météo / conclusion','Seulement la France','Uniquement les cartes'],'Ce plan couvre les transformations majeures.','Excellent plan.'],
+          ['Quel document peut montrer la décolonisation ?','Une carte des indépendances africaines',['Un plan de métro','Une affiche de cinéma','Une pyramide des âges française uniquement'],'Une carte permet de situer les nouveaux États.','Bon réflexe géo-histoire.'],
+          ['Quelle notion utiliser pour parler des États-Unis et de l’URSS ?','Superpuissance',['Ruralité','Périurbanisation','Laïcité'],'Une superpuissance a une influence politique, militaire, économique et culturelle.','Exact.']
+        ]
+      },
+      {
+        id:'h6', theme:'history', icon:'🏛️', title:'La République française de 1918 à nos jours',
+        intro:'Comprendre les transformations politiques et sociales de la République : crise, refondation, droits sociaux et Ve République.',
+        keywords:['République','Front populaire','Libération','Ve République'],
+        summary:[
+          'La République française traverse des crises entre les deux guerres mais se maintient.',
+          'Le Front populaire adopte des réformes sociales en 1936, comme les congés payés.',
+          'Après 1944, la République est refondée : droit de vote des femmes et Sécurité sociale.',
+          'La Ve République est fondée en 1958 dans un contexte de crise politique.',
+          'La société française se transforme : place des femmes, immigration, jeunesse, alternances politiques.'
+        ],
+        cards:[
+          ['Front populaire','Gouvernement de gauche élu en 1936, associé aux congés payés et aux réformes sociales.'],
+          ['Droit de vote des femmes','Droit accordé aux Françaises en 1944.'],
+          ['Sécurité sociale','Système créé après la Libération pour protéger contre les risques sociaux.'],
+          ['Ve République','Régime politique français fondé en 1958.'],
+          ['Alternance','Changement de majorité politique au pouvoir.'],
+          ['État-providence','État qui protège socialement les citoyens.']
+        ],
+        quizA:[
+          ['Quelle réforme sociale est associée au Front populaire ?','Les congés payés',['Le traité de Rome','La chute du mur de Berlin','La création de l’euro'],'En 1936, les salariés obtiennent notamment deux semaines de congés payés.','Très bien.'],
+          ['Quand les femmes obtiennent-elles le droit de vote en France ?','1944',['1789','1914','2002'],'Le droit de vote des femmes est accordé à la Libération.','Repère important validé.'],
+          ['Quelle institution sociale est créée après la Libération ?','La Sécurité sociale',['La CEE','L’ONU','L’OTAN'],'La Sécurité sociale protège les citoyens contre certains risques.','Bonne réponse.'],
+          ['Quand commence la Ve République ?','1958',['1936','1945','1989'],'La Constitution de 1958 fonde la Ve République.','Très bon repère.'],
+          ['Que signifie alternance politique ?','Un changement de majorité au pouvoir',['Une guerre civile','Une réforme scolaire','Une frontière maritime'],'L’alternance montre le fonctionnement démocratique.','Exact.'],
+          ['Quel président est associé aux débuts de la Ve République ?','Charles de Gaulle',['Jules Ferry','Léon Blum','Jean Moulin'],'De Gaulle revient au pouvoir en 1958.','Bien joué.'],
+          ['Que désigne l’État-providence ?','Un État qui protège socialement les citoyens',['Un État sans lois','Un État uniquement militaire','Un État colonial'],'La protection sociale se développe après 1945.','Oui.'],
+          ['Quel événement appartient aux transformations de la société française ?','L’évolution des droits des femmes',['La bataille de Verdun uniquement','La découverte de l’Amérique','La guerre des Gaules'],'La société française évolue fortement au XXe siècle.','Très bien.']
+        ],
+        quizB:[
+          ['Quel exemple illustre la refondation républicaine après 1944 ?','Le droit de vote des femmes',['La collaboration','La défaite de 1940','Le régime de Vichy'],'La Libération permet de restaurer et transformer la République.','Très bon exemple.'],
+          ['Quelle phrase est la plus adaptée ?','La République française se transforme en élargissant progressivement les droits sociaux et politiques.',['La République disparaît définitivement en 1936.','Les femmes votent depuis 1789.','La Ve République commence en 1918.'],'Elle résume les transformations de longue durée.','Excellente formulation.'],
+          ['Quel plan peut fonctionner pour ce chapitre ?','Crises / refondation / transformations sociales et politiques',['Seulement 1958','Un paragraphe sans dates','Hors sujet sur la mondialisation'],'Ce plan suit une chronologie claire.','Très bonne méthode.'],
+          ['Quel exemple peut montrer l’État-providence ?','La Sécurité sociale',['La Shoah','La périurbanisation','Le tourisme mondial'],'La Sécurité sociale protège contre les risques sociaux.','Exact.'],
+          ['Pourquoi citer 1958 ?','Pour dater la naissance de la Ve République',['Pour dater Verdun','Pour dater le traité de Rome','Pour dater la fin de l’URSS'],'1958 est un repère institutionnel central.','Repère maîtrisé.']
+        ]
+      },
+      {
+        id:'g1', theme:'geo', icon:'🏙️', title:'Les aires urbaines et la France urbaine',
+        intro:'Comprendre l’urbanisation, la métropolisation, la périurbanisation et les mobilités quotidiennes.',
+        keywords:['aire urbaine','métropole','périurbanisation','mobilités'],
+        summary:[
+          'La majorité des Français vit dans des espaces urbains organisés autour de grandes villes.',
+          'Une aire urbaine comprend un pôle urbain, une couronne périurbaine et des communes liées par les déplacements domicile-travail.',
+          'Les métropoles concentrent les emplois, les services, les universités et les fonctions de commandement.',
+          'La périurbanisation étale la ville vers les campagnes proches, avec des enjeux de transport et d’environnement.',
+          'Les mobilités quotidiennes sont importantes, notamment entre domicile et travail.'
+        ],
+        cards:[
+          ['Aire urbaine','Espace formé par un pôle urbain et sa couronne périurbaine liée par les mobilités.'],
+          ['Périurbanisation','Extension de la ville vers les espaces ruraux proches.'],
+          ['Métropole','Grande ville qui concentre population, emplois, services et pouvoirs de décision.'],
+          ['Mobilités pendulaires','Déplacements réguliers domicile-travail.'],
+          ['Étalement urbain','Extension spatiale de la ville, souvent vers la périphérie.'],
+          ['Pôle urbain','Ville-centre et banlieues proches concentrant emplois et population.']
+        ],
+        quizA:[
+          ['Qu’est-ce qu’une aire urbaine ?','Un pôle urbain et sa couronne périurbaine',['Une chaîne de montagnes','Une région agricole uniquement','Un pays européen'],'L’aire urbaine est organisée par les mobilités autour d’une ville.','Très bien.'],
+          ['Que signifie périurbanisation ?','L’extension de la ville vers les campagnes proches',['La disparition des villes','La baisse des transports','La création d’une frontière'],'La périurbanisation transforme les périphéries urbaines.','Bonne réponse.'],
+          ['Quelle ville est la principale métropole française ?','Paris',['Mende','Guéret','Foix'],'Paris concentre de nombreuses fonctions de commandement.','Exact.'],
+          ['Que sont les mobilités pendulaires ?','Les déplacements domicile-travail',['Les voyages de vacances uniquement','Les migrations internationales','Les déplacements des marchandises uniquement'],'Elles rythment les aires urbaines.','Bien joué.'],
+          ['Quel problème peut poser l’étalement urbain ?','L’augmentation des trajets et de la pollution',['La disparition de tous les transports','La baisse totale du logement','L’absence de routes'],'L’étalement augmente souvent la dépendance à la voiture.','Très bon lien.'],
+          ['Que concentre une métropole ?','Des emplois, services et fonctions de commandement',['Uniquement des champs','Seulement des forêts','Aucun service'],'Les métropoles attirent habitants et activités.','Oui.'],
+          ['Quelle expression désigne la croissance du rôle des grandes villes ?','Métropolisation',['Décolonisation','Totalitarisme','Front populaire'],'La métropolisation renforce le poids des grandes villes.','Notion validée.'],
+          ['Quelle partie entoure souvent la ville-centre ?','La banlieue et la couronne périurbaine',['Un désert obligatoire','Une mer intérieure','Une colonie'],'L’aire urbaine s’organise en plusieurs espaces.','Très bien.']
+        ],
+        quizB:[
+          ['Sur un croquis d’aire urbaine, que faut-il représenter ?','Centre, banlieue, couronne périurbaine et flux',['Seulement un drapeau','Une frise chronologique','Une bataille'],'Un bon croquis montre les espaces et les mobilités.','Excellent réflexe cartographique.'],
+          ['Quel exemple peut illustrer la métropolisation ?','Paris attire les sièges sociaux et les grandes infrastructures',['Une commune sans emplois','Un champ isolé','Un ancien empire'],'Les fonctions de commandement montrent le rôle métropolitain.','Très bon exemple.'],
+          ['Quelle phrase convient pour expliquer la périurbanisation ?','Des habitants s’installent plus loin du centre mais travaillent souvent dans l’aire urbaine.',['Les habitants quittent définitivement les villes pour aucune raison.','Les métropoles n’ont pas d’emplois.','Les transports disparaissent.'],'Elle relie habitat, travail et mobilités.','Bonne formulation.'],
+          ['Quel enjeu d’aménagement est lié aux aires urbaines ?','Développer des transports adaptés',['Supprimer toutes les communes','Construire uniquement des ports','Arrêter les services publics'],'Les mobilités posent des enjeux de transport.','Exact.'],
+          ['Que doit contenir une réponse organisée en géographie ?','Définition, exemples, enjeux et localisation',['Seulement une opinion','Aucune notion','Une liste sans lien'],'La géographie demande de localiser et d’expliquer.','Très bonne méthode.']
+        ]
+      },
+      {
+        id:'g2', theme:'geo', icon:'🌾', title:'Espaces de faible densité et espaces productifs',
+        intro:'Comprendre la diversité des territoires français : campagnes, montagnes, littoraux, espaces agricoles, industriels et touristiques.',
+        keywords:['faible densité','tourisme','agriculture','espaces productifs'],
+        summary:[
+          'Les espaces de faible densité couvrent une grande partie du territoire français mais accueillent peu d’habitants.',
+          'Ils peuvent connaître des difficultés : vieillissement, éloignement des services, manque d’emplois.',
+          'Certains espaces sont dynamiques grâce au tourisme, à l’agriculture de qualité ou à l’arrivée de nouveaux habitants.',
+          'Les espaces productifs français sont agricoles, industriels, de services ou touristiques.',
+          'La mondialisation et l’innovation transforment les activités économiques et les territoires.'
+        ],
+        cards:[
+          ['Faible densité','Espace où le nombre d’habitants par km² est peu élevé.'],
+          ['Espace productif','Espace aménagé pour produire des richesses : agriculture, industrie, services, tourisme.'],
+          ['Technopôle','Espace qui regroupe entreprises innovantes, recherche et universités.'],
+          ['Tourisme vert','Tourisme lié à la nature et aux espaces ruraux.'],
+          ['Agriculture intensive','Agriculture cherchant une forte production grâce à des moyens importants.'],
+          ['Reconversion','Transformation d’un espace ou d’une activité en difficulté vers de nouvelles fonctions.']
+        ],
+        quizA:[
+          ['Qu’est-ce qu’un espace de faible densité ?','Un espace peu peuplé',['Un espace très dense','Une capitale','Une métropole mondiale'],'La densité mesure le nombre d’habitants par km².','Très bien.'],
+          ['Quel problème peut toucher ces espaces ?','L’éloignement des services',['La surconcentration des métros','L’absence totale de paysages','La disparition de toute agriculture'],'Certains habitants sont loin des écoles, hôpitaux ou commerces.','Bonne réponse.'],
+          ['Quel facteur peut dynamiser un espace rural ?','Le tourisme',['La fermeture de tous les commerces','L’isolement total','L’absence de routes'],'Le tourisme peut créer emplois et attractivité.','Oui.'],
+          ['Qu’est-ce qu’un espace productif ?','Un espace qui produit des richesses',['Un espace sans activité','Un espace uniquement vide','Un espace interdit'],'Il peut être agricole, industriel, touristique ou tertiaire.','Exact.'],
+          ['Quel secteur domine dans les grandes métropoles ?','Les services',['La pêche uniquement','La mine partout','La chasse'],'Les métropoles concentrent les activités tertiaires supérieures.','Très bien.'],
+          ['Que désigne un technopôle ?','Un espace d’innovation associant recherche et entreprises',['Un village sans connexion','Une zone uniquement agricole','Un désert industriel'],'Les technopôles participent à l’économie de l’innovation.','Bonne réponse.'],
+          ['Quel exemple d’espace productif touristique français est pertinent ?','Les littoraux et les Alpes',['Le mur de Berlin','La plaine d’Amazonie','Le désert du Sahara français métropolitain'],'Littoraux et montagnes accueillent de nombreuses activités touristiques.','Très bon exemple.'],
+          ['Quel effet la mondialisation a-t-elle ?','Elle met les territoires en concurrence',['Elle arrête tous les échanges','Elle supprime les métropoles','Elle empêche le tourisme'],'Les entreprises et les territoires doivent s’adapter.','Exact.']
+        ],
+        quizB:[
+          ['Dans une étude de cas sur un espace productif, que faut-il montrer ?','Acteurs, activités, aménagements et liens avec la mondialisation',['Seulement la météo','Une opinion personnelle','Une définition sans exemple'],'Un bon raisonnement explique comment l’espace fonctionne.','Très bonne méthode.'],
+          ['Quel exemple illustre la reconversion ?','Une ancienne région industrielle qui développe de nouvelles activités',['Une guerre mondiale','Un régime totalitaire','Un suffrage universel'],'La reconversion transforme un territoire en difficulté.','Bien joué.'],
+          ['Quel croquis peut représenter un espace touristique ?','Des flux, des équipements et des zones attractives',['Un arbre généalogique','Une frise de 1914','Une pyramide politique'],'Un croquis géographique montre l’organisation spatiale.','Exact.'],
+          ['Pourquoi les espaces de faible densité ne sont-ils pas tous en déclin ?','Certains attirent touristes, retraités ou nouveaux habitants',['Ils sont tous des métropoles','Ils n’ont aucune activité','Ils ne sont jamais habités'],'Il faut nuancer : difficultés et dynamismes coexistent.','Excellent réflexe de copie.'],
+          ['Quelle notion utiliser pour parler des activités économiques d’un territoire ?','Espace productif',['Shoah','Collaboration','CNR'],'C’est la notion clé du chapitre.','Très bien.']
+        ]
+      },
+      {
+        id:'g3', theme:'geo', icon:'🚆', title:'Aménager le territoire français',
+        intro:'Comprendre comment les acteurs publics cherchent à réduire les inégalités entre territoires.',
+        keywords:['aménagement','fractures territoriales','acteurs','territoires ultramarins'],
+        summary:[
+          'Le territoire français est marqué par des inégalités entre métropoles, périphéries, campagnes, littoraux et outre-mer.',
+          'L’aménagement du territoire vise à organiser l’espace et à réduire les déséquilibres.',
+          'Les acteurs sont nombreux : État, régions, départements, communes, Union européenne, entreprises et habitants.',
+          'Les transports, le numérique, les services publics et les projets urbains sont des outils d’aménagement.',
+          'Les territoires ultramarins ont des contraintes spécifiques : éloignement, insularité, risques naturels, dépendance économique.'
+        ],
+        cards:[
+          ['Aménagement du territoire','Action visant à organiser et transformer un territoire pour répondre aux besoins.'],
+          ['Fracture territoriale','Inégalité entre territoires dans l’accès aux services, emplois ou infrastructures.'],
+          ['Collectivité territoriale','Institution locale comme une région, un département ou une commune.'],
+          ['Outre-mer','Territoires français situés hors d’Europe.'],
+          ['Accessibilité','Facilité à rejoindre un lieu ou un service.'],
+          ['Décentralisation','Transfert de compétences de l’État vers les collectivités territoriales.']
+        ],
+        quizA:[
+          ['Quel est l’objectif de l’aménagement du territoire ?','Réduire les inégalités et organiser l’espace',['Créer des guerres','Supprimer les services','Interdire les transports'],'L’aménagement répond aux besoins des habitants et des territoires.','Très bien.'],
+          ['Qu’est-ce qu’une fracture territoriale ?','Une inégalité entre territoires',['Une bataille historique','Une loi antisémite','Une monnaie européenne'],'Elle peut concerner l’emploi, les services, les transports ou le numérique.','Bonne réponse.'],
+          ['Quel acteur aménage le territoire ?','L’État et les collectivités territoriales',['Uniquement les soldats','Seulement les touristes','Aucun acteur'],'L’aménagement mobilise plusieurs niveaux d’acteurs.','Exact.'],
+          ['Quel outil peut réduire l’isolement ?','Les transports et le numérique',['La fermeture des gares','La suppression d’Internet','L’arrêt des services publics'],'Les infrastructures améliorent l’accessibilité.','Très bien.'],
+          ['Que sont les territoires ultramarins ?','Des territoires français hors d’Europe',['Des pays étrangers sans lien avec la France','Des quartiers de Paris','Des anciennes tranchées'],'Ils font partie de la France mais sont éloignés de la métropole.','Bien joué.'],
+          ['Quelle contrainte touche souvent les outre-mer ?','L’éloignement et l’insularité',['La centralité européenne','L’absence de littoraux','Le climat polaire partout'],'Beaucoup de territoires ultramarins sont insulaires et éloignés.','Oui.'],
+          ['Que signifie accessibilité ?','Facilité à accéder à un lieu ou service',['Nombre de morts dans une guerre','Type de régime politique','Processus d’indépendance'],'C’est une notion clé pour les transports et services.','Très bien.'],
+          ['Que signifie décentralisation ?','Transfert de compétences aux collectivités',['Suppression des communes','Retour à l’empire','Création d’un régime totalitaire'],'Les collectivités locales jouent un rôle plus important.','Bonne réponse.']
+        ],
+        quizB:[
+          ['Quel exemple illustre un aménagement ?','Une ligne de tramway ou de TGV',['Une affiche de propagande','Un traité de paix seulement','Une bataille'],'Un équipement de transport transforme l’organisation de l’espace.','Très bon exemple.'],
+          ['Dans un sujet sur les inégalités territoriales, que faut-il faire ?','Montrer les écarts et les politiques pour les réduire',['Dire que tous les territoires sont identiques','Éviter les exemples','Parler uniquement de 1914'],'Le sujet demande d’expliquer les déséquilibres et les réponses.','Excellent.'],
+          ['Quel acteur peut financer certains projets régionaux ?','L’Union européenne',['L’Empire ottoman','Le régime de Vichy','La Résistance intérieure'],'L’UE peut financer des projets d’aménagement.','Très bien.'],
+          ['Quel enjeu est fort dans les territoires ultramarins ?','Assurer la continuité territoriale',['Construire le mur de Berlin','Créer la CEE','Lancer l’appel du 18 juin'],'L’éloignement pose des problèmes de transport et de coût.','Bonne réponse.'],
+          ['Quelle phrase est une bonne conclusion ?','L’aménagement cherche à rendre les territoires plus équilibrés et mieux connectés.',['Les territoires n’ont aucun problème.','L’aménagement est seulement une guerre.','Les transports sont inutiles.'],'Elle répond au sujet et ouvre sur les enjeux.','Très bonne conclusion.']
+        ]
+      },
+      {
+        id:'g4', theme:'geo', icon:'🇪🇺', title:'La France et l’Union européenne dans le monde',
+        intro:'Comprendre l’influence de la France et de l’UE, leurs atouts, leurs limites et leur place dans la mondialisation.',
+        keywords:['Union européenne','puissance','mondialisation','influence'],
+        summary:[
+          'L’Union européenne est un espace de coopération politique et économique regroupant de nombreux États européens.',
+          'La France est intégrée à l’UE et participe au marché commun, aux politiques européennes et à l’espace Schengen.',
+          'La France dispose d’atouts mondiaux : territoire ultramarin, armée, diplomatie, culture, entreprises, tourisme.',
+          'L’UE est une puissance économique majeure mais son influence politique et militaire reste parfois limitée.',
+          'La mondialisation renforce les échanges mais crée aussi de la concurrence et des dépendances.'
+        ],
+        cards:[
+          ['Union européenne','Organisation régionale d’États européens coopérant dans plusieurs domaines.'],
+          ['Marché commun','Espace où les marchandises, personnes, services et capitaux circulent librement.'],
+          ['Puissance','Capacité d’un État ou d’un espace à influencer le monde.'],
+          ['Mondialisation','Mise en relation croissante des territoires par les échanges.'],
+          ['ZEE','Zone économique exclusive donnant des droits sur les ressources maritimes.'],
+          ['Espace Schengen','Espace de libre circulation entre plusieurs États européens.']
+        ],
+        quizA:[
+          ['Qu’est-ce que l’Union européenne ?','Une organisation d’États européens coopérant entre eux',['Un seul État mondial','Une ancienne colonie','Une ville française'],'L’UE repose sur une coopération politique et économique.','Très bien.'],
+          ['Quel traité de 1992 renforce l’Union européenne ?','Le traité de Maastricht',['Le traité de Versailles','L’armistice de 1918','Le traité de Verdun'],'Maastricht crée l’Union européenne et prépare l’euro.','Repère validé.'],
+          ['Quelle monnaie est utilisée par de nombreux pays de l’UE ?','L’euro',['Le dollar uniquement','Le franc partout','Le yen'],'L’euro est mis en circulation en 2002.','Bonne réponse.'],
+          ['Quel atout mondial possède la France grâce à ses outre-mer ?','Une grande ZEE',['Un seul climat','Une absence de littoraux','Une fermeture maritime'],'Les territoires ultramarins donnent à la France une présence maritime mondiale.','Très bien.'],
+          ['Que signifie puissance ?','Capacité d’influencer les autres acteurs',['Faible densité','Absence d’échanges','Type de tranchée'],'La puissance peut être économique, militaire, culturelle, diplomatique.','Exact.'],
+          ['Quel secteur renforce le rayonnement culturel et économique français ?','Le tourisme',['La défaite de 1940','La Guerre froide uniquement','Les camps'],'La France est une grande destination touristique.','Oui.'],
+          ['Que signifie mondialisation ?','Mise en relation croissante des territoires',['Isolement total','Fin des échanges','Suppression des villes'],'La mondialisation augmente les flux de biens, personnes, capitaux et informations.','Très bien.'],
+          ['Quel espace facilite la circulation en Europe ?','L’espace Schengen',['La ligne Maginot','La zone occupée','Le Goulag'],'Schengen permet la libre circulation entre plusieurs pays.','Bonne réponse.']
+        ],
+        quizB:[
+          ['Quel exemple montre l’influence mondiale de la France ?','Sa diplomatie, sa culture et ses territoires ultramarins',['Ses tranchées de 1916 uniquement','Son absence de littoral','Sa sortie de l’Europe'],'La puissance combine plusieurs dimensions.','Très bon exemple.'],
+          ['Quelle limite peut connaître l’Union européenne ?','Des difficultés à parler d’une seule voix en politique étrangère',['Une absence totale d’économie','Aucun État membre','Pas de marché intérieur'],'L’UE est puissante économiquement mais politiquement parfois divisée.','Excellente nuance.'],
+          ['Que doit montrer un croquis sur l’UE ?','Centres, périphéries, flux et interfaces',['Seulement des dates','Une biographie','Un régime totalitaire'],'Un croquis géographique doit localiser et hiérarchiser les espaces.','Très bonne méthode.'],
+          ['Quelle phrase est équilibrée ?','La France et l’UE ont une influence mondiale réelle mais inégale selon les domaines.',['Elles n’ont aucune influence.','Elles dominent totalement le monde.','Elles ne participent pas aux échanges.'],'Une bonne copie nuance la puissance.','Excellent.'],
+          ['Pourquoi parler des outre-mer dans ce chapitre ?','Ils donnent à la France une présence mondiale et maritime',['Ils sont tous dans Paris','Ils datent de 1914','Ils forment l’URSS'],'Les outre-mer renforcent le rayonnement géographique de la France.','Bien joué.']
+        ]
+      },
+      {
+        id:'e1', theme:'emc', icon:'⚖️', title:'Valeurs, principes et symboles de la République',
+        intro:'Réviser les bases de l’EMC : démocratie, République, laïcité, citoyenneté et symboles.',
+        keywords:['liberté','égalité','fraternité','laïcité'],
+        summary:[
+          'La République française repose sur des valeurs : liberté, égalité, fraternité.',
+          'Elle repose aussi sur des principes : démocratie, laïcité, indivisibilité et caractère social de la République.',
+          'Les symboles républicains expriment l’unité nationale : drapeau tricolore, Marseillaise, Marianne, 14 juillet, devise.',
+          'La laïcité garantit la liberté de conscience et la neutralité de l’État.',
+          'La citoyenneté implique des droits, des devoirs et la participation à la vie démocratique.'
+        ],
+        cards:[
+          ['Laïcité','Principe qui garantit la liberté de conscience et la neutralité de l’État face aux religions.'],
+          ['Citoyenneté','Statut donnant des droits et des devoirs, et permettant de participer à la vie politique.'],
+          ['Démocratie','Régime politique dans lequel le pouvoir appartient au peuple.'],
+          ['Devise républicaine','Liberté, Égalité, Fraternité.'],
+          ['Constitution','Texte qui organise les pouvoirs et garantit les droits fondamentaux.'],
+          ['Symbole républicain','Élément représentant la République, comme le drapeau ou Marianne.']
+        ],
+        quizA:[
+          ['Quelle est la devise de la République française ?','Liberté, Égalité, Fraternité',['Travail, Famille, Patrie','Force, Ordre, Empire','Paix, Richesse, Gloire'],'La devise républicaine exprime les valeurs de la République.','Très bien.'],
+          ['Que garantit la laïcité ?','La liberté de conscience et la neutralité de l’État',['L’interdiction de toute opinion','La domination d’une religion','La fin de la citoyenneté'],'La laïcité protège la liberté de croire ou de ne pas croire.','Excellente réponse.'],
+          ['Quel symbole représente la République ?','Marianne',['La faucille uniquement','Le mur de Berlin','Une tranchée'],'Marianne est une figure symbolique de la République.','Bonne réponse.'],
+          ['Qu’est-ce qu’une démocratie ?','Un régime où le pouvoir appartient au peuple',['Une dictature totale','Un régime sans élections','Une colonie'],'La démocratie repose sur la souveraineté du peuple.','Exact.'],
+          ['Quel texte organise les pouvoirs en France ?','La Constitution',['Un menu','Un traité commercial uniquement','Une affiche publicitaire'],'La Constitution fixe les règles des institutions.','Très bien.'],
+          ['Quel est un devoir du citoyen ?','Respecter la loi',['Frauder aux élections','Refuser tous les droits','Supprimer les libertés'],'Les droits s’accompagnent de devoirs.','Bien joué.'],
+          ['Quel jour est fête nationale en France ?','Le 14 juillet',['Le 11 novembre seulement','Le 9 mai','Le 1er janvier uniquement'],'Le 14 juillet est un symbole républicain.','Repère validé.'],
+          ['Quel principe signifie que la loi est la même pour tous ?','L’égalité',['La puissance','La périurbanisation','La mondialisation'],'L’égalité est une valeur républicaine.','Très bien.']
+        ],
+        quizB:[
+          ['Dans une situation d’EMC, que faut-il faire ?','Identifier les valeurs et principes en jeu',['Raconter seulement le cours d’histoire','Éviter la loi','Donner une opinion sans argument'],'L’EMC demande de raisonner avec les valeurs républicaines.','Très bonne méthode.'],
+          ['Quel exemple illustre la liberté de conscience ?','Pouvoir croire, changer de religion ou ne pas croire',['Être obligé de voter pour un chef','Interdire tout débat','Supprimer les associations'],'La liberté de conscience est protégée par la laïcité.','Exact.'],
+          ['Quelle réponse est la plus citoyenne face à une discrimination ?','La signaler et rappeler l’égalité devant la loi',['L’encourager','L’ignorer toujours','Répondre par la violence'],'La République condamne les discriminations.','Très bon réflexe.'],
+          ['Pourquoi les symboles sont-ils importants ?','Ils rappellent l’appartenance à une communauté politique',['Ils remplacent les lois','Ils empêchent les élections','Ils sont seulement décoratifs'],'Les symboles créent une culture commune.','Très bien.'],
+          ['Quelle phrase peut conclure une réponse EMC ?','Les valeurs de la République doivent être appliquées concrètement pour protéger tous les citoyens.',['La loi ne sert à rien.','La démocratie est inutile.','Les symboles suffisent sans droits.'],'C’est une conclusion argumentée et civique.','Excellente formulation.']
+        ]
+      },
+      {
+        id:'e2', theme:'emc', icon:'🤝', title:'Engagement, défense et citoyenneté',
+        intro:'Comprendre les formes d’engagement citoyen, la défense nationale, les droits et les responsabilités.',
+        keywords:['engagement','citoyen','défense','droits et devoirs'],
+        summary:[
+          'Un citoyen peut s’engager en votant, en adhérant à une association, en participant à un débat ou en aidant les autres.',
+          'La citoyenneté repose sur des droits mais aussi sur des devoirs : respecter la loi, autrui et les valeurs républicaines.',
+          'La défense nationale protège le territoire, la population, les institutions et les intérêts du pays.',
+          'Les jeunes participent au parcours citoyen et à la Journée défense et citoyenneté.',
+          'L’engagement peut être local, national ou international.'
+        ],
+        cards:[
+          ['Engagement','Action volontaire pour défendre une cause ou participer à la vie collective.'],
+          ['Association','Groupe de personnes réunies autour d’un objectif commun.'],
+          ['Défense nationale','Organisation visant à protéger le pays, ses habitants et ses institutions.'],
+          ['JDC','Journée défense et citoyenneté, étape du parcours citoyen.'],
+          ['Droit','Liberté ou possibilité reconnue et protégée par la loi.'],
+          ['Devoir','Obligation morale ou juridique envers les autres et la société.']
+        ],
+        quizA:[
+          ['Quelle action est une forme d’engagement citoyen ?','Participer à une association',['Refuser toute règle','Harceler quelqu’un','Détruire un bureau de vote'],'L’engagement peut être associatif, politique ou solidaire.','Très bien.'],
+          ['Quel est un devoir du citoyen ?','Respecter la loi',['Tricher aux élections','Discriminer','Refuser les droits des autres'],'La citoyenneté implique droits et devoirs.','Bonne réponse.'],
+          ['À quoi sert la défense nationale ?','Protéger le pays et ses habitants',['Organiser les vacances','Supprimer la démocratie','Créer des colonies'],'La défense protège le territoire, la population et les institutions.','Exact.'],
+          ['Que signifie JDC ?','Journée défense et citoyenneté',['Jeunesse démocratique centrale','Journal des citoyens','Justice départementale commune'],'La JDC fait partie du parcours citoyen.','Très bien.'],
+          ['Quel droit permet de choisir ses représentants ?','Le droit de vote',['Le droit à la pollution','Le droit de censurer tout le monde','Le droit de discriminer'],'Le vote est un droit politique fondamental.','Oui.'],
+          ['Quelle valeur est liée à l’aide aux autres ?','La fraternité',['La domination','La censure','La propagande'],'La fraternité implique solidarité et respect.','Bonne réponse.'],
+          ['Quel engagement peut être local ?','Participer à une action de quartier',['Créer une guerre mondiale','Signer un traité international seul','Annexer un territoire'],'L’engagement peut commencer près de chez soi.','Très bien.'],
+          ['Pourquoi débattre est-il important en démocratie ?','Pour confronter des idées sans violence',['Pour imposer une seule opinion','Pour supprimer les élections','Pour éviter toute règle'],'Le débat pacifique est essentiel à la vie démocratique.','Très bon raisonnement.']
+        ],
+        quizB:[
+          ['Dans un sujet EMC sur une association, quelle notion utiliser ?','Engagement citoyen',['Guerre totale','Métropolisation','Décolonisation'],'Une association est une forme d’engagement collectif.','Exact.'],
+          ['Quelle réponse est adaptée face à une rumeur haineuse en ligne ?','Ne pas la partager, signaler, vérifier les sources',['La diffuser davantage','Insulter en retour','Créer une fausse preuve'],'La citoyenneté numérique suppose responsabilité et esprit critique.','Très bon réflexe.'],
+          ['Comment structurer une réponse EMC ?','Décrire la situation, identifier les valeurs, proposer une action responsable',['Donner une opinion brute','Réciter une date sans lien','Écrire une seule phrase vague'],'Cette méthode montre un raisonnement civique.','Excellent.'],
+          ['Quel exemple montre un devoir civique ?','Respecter les autres dans un débat',['Empêcher quelqu’un de parler','Voter plusieurs fois','Menacer un élu'],'La démocratie suppose respect et pluralisme.','Bien joué.'],
+          ['Quelle conclusion convient ?','S’engager, c’est participer à la vie collective en respectant les droits des autres.',['S’engager ne sert jamais à rien.','La loi empêche toute liberté.','Le citoyen n’a que des droits.'],'C’est une conclusion équilibrée.','Très bonne formulation.']
+        ]
+      }
+    ],
+    methods:[
+      {title:'Analyser un document', icon:'📄', steps:['Présenter la nature du document : texte, carte, affiche, photo, graphique.', 'Identifier l’auteur, la date, le contexte et le destinataire quand c’est possible.', 'Prélever des informations précises dans le document.', 'Expliquer avec tes connaissances : ne pas seulement recopier.', 'Répondre clairement à la question posée.']},
+      {title:'Réussir le développement construit', icon:'✍️', steps:['Faire un mini-brouillon avec 2 ou 3 idées principales.', 'Commencer par une phrase d’introduction qui reformule le sujet.', 'Organiser la réponse en paragraphes.', 'Utiliser des exemples précis : dates, lieux, acteurs, notions.', 'Terminer par une phrase de conclusion qui répond au sujet.']},
+      {title:'Faire un croquis ou un schéma', icon:'🗺️', steps:['Lire le sujet pour savoir ce qu’il faut représenter.', 'Choisir des figurés simples : couleurs, flèches, points, hachures.', 'Construire une légende organisée en 2 ou 3 parties.', 'Donner un titre clair.', 'Soigner la lisibilité : pas de coloriage sale, pas de surcharge.']},
+      {title:'Gérer les 2 heures d’épreuve', icon:'⏱️', steps:['Lire tout le sujet avant de commencer.', 'Ne pas rester bloqué trop longtemps sur une question.', 'Garder du temps pour la rédaction ou le développement construit.', 'Relire les dates, noms propres et accords.', 'Vérifier que chaque réponse répond exactement à la consigne.']},
+      {title:'Apprendre les repères', icon:'📍', steps:['Créer des petites fiches date → événement.', 'S’entraîner dans les deux sens : date vers événement et événement vers date.', 'Regrouper les dates par période : guerres mondiales, Guerre froide, République, Europe.', 'Placer les lieux sur une carte mentale simple.', 'Refaire les repères 5 minutes par jour plutôt qu’une grosse session.']},
+      {title:'Répondre en EMC', icon:'⚖️', steps:['Identifier le problème posé par la situation.', 'Repérer les valeurs/principes concernés : liberté, égalité, fraternité, laïcité, solidarité.', 'Expliquer les droits et les devoirs des personnes.', 'Proposer une réponse responsable, légale et respectueuse.', 'Éviter la simple opinion : il faut argumenter.']}
+    ],
+    markers:[
+      ['1914-1918','Première Guerre mondiale'],
+      ['1916','Bataille de Verdun'],
+      ['1917','Révolutions russes'],
+      ['1933','Hitler arrive au pouvoir en Allemagne'],
+      ['1936','Front populaire en France'],
+      ['1939-1945','Seconde Guerre mondiale'],
+      ['18 juin 1940','Appel du général de Gaulle'],
+      ['1944','Droit de vote des femmes en France'],
+      ['1945','Création de l’ONU'],
+      ['1947-1991','Guerre froide'],
+      ['1957','Traité de Rome et création de la CEE'],
+      ['1958','Naissance de la Ve République'],
+      ['1962','Indépendance de l’Algérie'],
+      ['1989','Chute du mur de Berlin'],
+      ['1991','Disparition de l’URSS'],
+      ['1992','Traité de Maastricht'],
+      ['2002','Mise en circulation de l’euro']
+    ],
+    genericQuestions:{
+      A:[
+        ['Dans une réponse de brevet, que faut-il faire en priorité ?','Répondre précisément à la consigne',['Écrire le plus long possible','Changer de sujet','Ne pas utiliser le cours'],'La consigne indique exactement ce qui est attendu.','Très bon réflexe.'],
+        ['Que faut-il faire avec une notion importante ?','La définir clairement',['L’éviter','L’écrire sans l’expliquer','La remplacer par une opinion'],'Définir une notion montre que tu maîtrises le cours.','Bien joué.'],
+        ['Pourquoi utiliser un exemple ?','Pour prouver une idée',['Pour décorer la copie','Pour éviter la réponse','Pour remplacer la conclusion'],'Un exemple précis renforce l’argument.','Excellent.'],
+        ['Que faut-il éviter dans une copie ?','Les réponses vagues sans exemple',['Les dates utiles','Les définitions','Les phrases organisées'],'Les réponses vagues font perdre des points.','Bonne réponse.']
+      ],
+      B:[
+        ['Quelle attitude adopter face à un document ?','Le décrire puis l’expliquer avec le cours',['Le recopier entièrement','L’ignorer','Répondre sans le lire'],'L’analyse de document combine informations du document et connaissances.','Très bon réflexe brevet.'],
+        ['Quelle phrase est la plus efficace ?','On peut le montrer par l’exemple de…',['Je crois que peut-être…','C’est comme ça.','Bref.'],'Une phrase d’exemple rend l’argument clair.','Bonne méthode.'],
+        ['Que faut-il faire avant de rédiger ?','Préparer rapidement un plan au brouillon',['Écrire sans réfléchir','Commencer par la conclusion','Choisir les réponses au hasard'],'Un plan évite le hors-sujet.','Excellent.'],
+        ['Quelle qualité est attendue dans une réponse longue ?','Une organisation claire en paragraphes',['Une seule phrase interminable','Des mots sans lien','Aucune ponctuation'],'La structure compte beaucoup dans une copie.','Très bien.']
+      ]
+    }
+  };
+
+  const STORAGE_KEY = 'brevet-hg-emc-progress-v1';
+  const state = {
+    view:'home', activeTheme:null, activeChapter:null, tab:'summary',
+    flashIndex:0, flashAnswer:false, quiz:null, assistantHistory: [],
+    progress: loadProgress()
+  };
+
+  const $ = (sel) => document.querySelector(sel);
+  const screen = $('#screen');
+
+  function loadProgress(){
+    try{return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};}
+    catch(e){return {};}
+  }
+  function saveProgress(){localStorage.setItem(STORAGE_KEY, JSON.stringify(state.progress)); updateProgressUI();}
+  function shuffle(arr){return [...arr].sort(()=>Math.random()-.5)}
+  function escapeHtml(str){return String(str).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+
+  function init(){
+    $('#homeBtn').addEventListener('click',()=>goHome());
+    $('#resetBtn').addEventListener('click',()=>resetProgress());
+    renderNav();
+    goHome();
+    updateProgressUI();
+  }
+
+  function renderNav(){
+    const nav = $('#sideNav');
+    nav.innerHTML = APP_DATA.categories.map(cat => {
+      const count = cat.id==='home' || cat.id==='methods' || cat.id==='markers' || cat.id==='assistant' ? '' : `<span class="badge">${APP_DATA.chapters.filter(c=>c.theme===cat.id).length}</span>`;
+      return `<button data-nav="${cat.id}"><span>${cat.icon} ${cat.label}</span>${count}</button>`;
+    }).join('');
+    nav.querySelectorAll('button').forEach(btn => btn.addEventListener('click',()=>navigate(btn.dataset.nav)));
+  }
+
+  function setActiveNav(id){
+    document.querySelectorAll('[data-nav]').forEach(b=>b.classList.toggle('active', b.dataset.nav===id));
+  }
+
+  function navigate(id){
+    state.view=id; state.activeTheme=id; state.activeChapter=null; state.quiz=null; state.tab='summary';
+    setActiveNav(id);
+    if(id==='home') renderHome();
+    else if(id==='methods') renderMethods();
+    else if(id==='markers') renderMarkers();
+    else if(id==='assistant') renderAssistant();
+    else renderChapterList(id);
+  }
+
+  function goHome(){state.view='home'; setActiveNav('home'); renderHome();}
+
+  function updateProgressUI(){
+    const chapters = APP_DATA.chapters;
+    const done = chapters.filter(c => state.progress[c.id]?.completed).length;
+    const scores = chapters.map(c => state.progress[c.id]?.best || 0).filter(Boolean);
+    const avg = scores.length ? Math.round(scores.reduce((a,b)=>a+b,0)/scores.length) : 0;
+    $('#doneCount').textContent = done + (done>1?' chapitres':' chapitre');
+    $('#avgScore').textContent = avg + '%';
+    $('#globalProgress').style.width = Math.round(done/chapters.length*100) + '%';
+  }
+
+  function resetProgress(){
+    const ok = confirm('Réinitialiser toute la progression de cette application ?');
+    if(!ok) return;
+    state.progress = {};
+    localStorage.removeItem(STORAGE_KEY);
+    updateProgressUI();
+    renderCurrent();
+  }
+
+  function renderCurrent(){
+    if(state.activeChapter) renderChapter(state.activeChapter.id, state.tab);
+    else if(state.view==='home') renderHome();
+    else if(state.view==='methods') renderMethods();
+    else if(state.view==='markers') renderMarkers();
+    else if(state.view==='assistant') renderAssistant();
+    else renderChapterList(state.activeTheme || 'history');
+  }
+
+  function renderHome(){
+    state.activeChapter=null;
+    const totalChapters = APP_DATA.chapters.length;
+    const totalCards = APP_DATA.chapters.reduce((n,c)=>n+c.cards.length,0);
+    const totalMarkers = APP_DATA.markers.length;
+    screen.innerHTML = `
+      <div class="hero">
+        <div>
+          <h2>Révise l’Histoire-Géo-EMC sans te perdre.</h2>
+          <p>Choisis un thème, révise les notions avec les flashcards, puis teste-toi avec des QCM type brevet. L’objectif : progresser un chapitre après l’autre.</p>
+          <div class="toolbar">
+            <button class="btn primary" onclick="navigate('history')">Commencer en histoire</button>
+            <button class="btn" onclick="navigate('geo')">Aller en géographie</button>
+            <button class="btn" onclick="navigate('methods')">Voir les méthodes</button>
+            <button class="btn" onclick="navigate('assistant')">Assistant révision</button>
+          </div>
+        </div>
+        <div class="hero-card">
+          <h3>Plan de révision conseillé</h3>
+          <p class="subtitle">1 chapitre = 20 à 30 minutes</p>
+          <div class="quick-stats">
+            <div class="quick-stat"><strong>${totalChapters}</strong><span>chapitres</span></div>
+            <div class="quick-stat"><strong>${totalCards}</strong><span>flashcards</span></div>
+            <div class="quick-stat"><strong>${totalMarkers}</strong><span>repères</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="grid">
+        ${themeCard('history','📜','Histoire','Guerres mondiales, totalitarismes, monde depuis 1945, République française.')}
+        ${themeCard('geo','🗺️','Géographie','Aires urbaines, espaces productifs, aménagement, France et UE dans le monde.')}
+        ${themeCard('emc','⚖️','EMC','Valeurs républicaines, citoyenneté, engagement, défense, laïcité.')}
+        ${themeCard('methods','🧠','Méthodes brevet','Analyse de document, développement construit, croquis, repères et gestion du temps.')}
+        ${themeCard('assistant','💬','Assistant révision','Pose une question ou clique sur une aide rapide : définitions, dates, méthodes, chapitres.')}
+      </div>
+    `;
+  }
+
+  function themeCard(id, icon, title, text){
+    return `<article class="chapter-card" onclick="navigate('${id}')">
+      <div class="chapter-top"><div class="icon ${id==='history'?'theme-history':id==='geo'?'theme-geo':id==='emc'?'theme-emc':id==='assistant'?'theme-assistant':'theme-method'}">${icon}</div>
+      <div><h3>${title}</h3><p>${text}</p></div></div>
+      <div class="chips"><span class="chip">ouvrir</span></div>
+    </article>`;
+  }
+
+  function renderChapterList(theme){
+    const label = APP_DATA.categories.find(c=>c.id===theme)?.label || 'Chapitres';
+    const chapters = APP_DATA.chapters.filter(c=>c.theme===theme);
+    screen.innerHTML = `
+      <div class="screen-title">
+        <div><h2>${escapeHtml(label)}</h2><p>Choisis un chapitre pour accéder au résumé, aux flashcards et au QCM.</p></div>
+      </div>
+      <div class="grid">
+        ${chapters.map(ch => chapterCard(ch)).join('') || '<div class="empty">Aucun chapitre pour ce thème.</div>'}
+      </div>
+    `;
+  }
+
+  function chapterCard(ch){
+    const p = state.progress[ch.id] || {};
+    const best = p.best ? `<span class="chip">meilleur score ${p.best}%</span>` : '<span class="chip">à faire</span>';
+    const completed = p.completed ? '<span class="chip">validé</span>' : '';
+    const themeClass = ch.theme==='history'?'theme-history':ch.theme==='geo'?'theme-geo':'theme-emc';
+    return `<article class="chapter-card" onclick="openChapter('${ch.id}')">
+      <div>
+        <div class="chapter-top"><div class="icon ${themeClass}">${ch.icon}</div><div><h3>${escapeHtml(ch.title)}</h3><p>${escapeHtml(ch.intro)}</p></div></div>
+        <div class="chips">${ch.keywords.map(k=>`<span class="chip">${escapeHtml(k)}</span>`).join('')}</div>
+      </div>
+      <div class="chips">${best}${completed}</div>
+    </article>`;
+  }
+
+  function openChapter(id){
+    const ch = APP_DATA.chapters.find(c=>c.id===id);
+    state.activeChapter = ch; state.tab='summary'; state.flashIndex=0; state.flashAnswer=false; state.quiz=null;
+    setActiveNav(ch.theme);
+    renderChapter(id,'summary');
+  }
+
+  function renderChapter(id, tab='summary'){
+    const ch = APP_DATA.chapters.find(c=>c.id===id);
+    state.activeChapter = ch; state.tab = tab;
+    const p = state.progress[ch.id] || {};
+    screen.innerHTML = `
+      <div class="screen-title">
+        <div><h2>${ch.icon} ${escapeHtml(ch.title)}</h2><p>${escapeHtml(ch.intro)}</p></div>
+        <button class="btn small" onclick="navigate('${ch.theme}')">Retour</button>
+      </div>
+      <div class="toolbar">
+        ${tabBtn('summary','Résumé')}${tabBtn('cards','Flashcards')}${tabBtn('quiz','QCM')}
+      </div>
+      <div id="chapterContent"></div>
+    `;
+    if(tab==='summary') renderSummary(ch,p);
+    if(tab==='cards') renderCards(ch);
+    if(tab==='quiz') renderQuizSetup(ch);
+  }
+
+  function tabBtn(id,label){return `<button class="tab ${state.tab===id?'active':''}" onclick="renderChapter('${state.activeChapter.id}','${id}')">${label}</button>`}
+
+  function renderSummary(ch,p){
+    $('#chapterContent').innerHTML = `
+      <div class="content-grid">
+        <article class="card"><h3>À retenir</h3><ul class="summary-list">${ch.summary.map(s=>`<li>${escapeHtml(s)}</li>`).join('')}</ul></article>
+        <article class="card"><h3>Notions clés</h3>${ch.cards.map(([a,b])=>`<div class="notion"><span>✨</span><div><strong>${escapeHtml(a)}</strong><span>${escapeHtml(b)}</span></div></div>`).join('')}</article>
+      </div>
+      <div class="toolbar">
+        <button class="btn primary" onclick="renderChapter('${ch.id}','cards')">Réviser avec les flashcards</button>
+        <button class="btn" onclick="renderChapter('${ch.id}','quiz')">Faire un QCM</button>
+      </div>
+    `;
+  }
+
+  function renderCards(ch){
+    const card = ch.cards[state.flashIndex % ch.cards.length];
+    $('#chapterContent').innerHTML = `
+      <div class="card">
+        <div class="flashcard" onclick="flipCard()">
+          <div>
+            <div class="label">${state.flashAnswer ? 'Réponse' : 'Question'}</div>
+            <div class="text">${escapeHtml(state.flashAnswer ? card[1] : card[0])}</div>
+            <div class="hint">Clique sur la carte pour ${state.flashAnswer ? 'revoir la notion' : 'afficher la réponse'}.</div>
+          </div>
+        </div>
+        <div class="flash-actions">
+          <button class="btn" onclick="prevCard()">Précédente</button>
+          <strong>${state.flashIndex+1} / ${ch.cards.length}</strong>
+          <button class="btn primary" onclick="nextCard()">Suivante</button>
+        </div>
+      </div>
+    `;
+  }
+
+  function flipCard(){state.flashAnswer=!state.flashAnswer; renderCards(state.activeChapter);}
+  function nextCard(){
+    state.flashIndex = (state.flashIndex + 1) % state.activeChapter.cards.length;
+    state.flashAnswer=false;
+    const p = state.progress[state.activeChapter.id] || {};
+    p.cardsSeen = Math.max(p.cardsSeen || 0, state.flashIndex+1);
+    state.progress[state.activeChapter.id]=p; saveProgress();
+    renderCards(state.activeChapter);
+  }
+  function prevCard(){state.flashIndex = (state.flashIndex - 1 + state.activeChapter.cards.length) % state.activeChapter.cards.length; state.flashAnswer=false; renderCards(state.activeChapter);}
+
+  function renderQuizSetup(ch){
+    $('#chapterContent').innerHTML = `
+      <div class="card">
+        <h3>Préparer le QCM</h3>
+        <div class="quiz-setup">
+          <label>Série
+            <select id="serie"><option value="A">Série A — notions essentielles</option><option value="B">Série B — type brevet</option></select>
+          </label>
+          <label>Nombre de questions
+            <select id="count"><option>5</option><option>10</option><option>15</option><option>20</option></select>
+          </label>
+        </div>
+        <button class="btn primary" onclick="startQuiz()">Lancer le QCM</button>
+      </div>
+      <div id="quizArea"></div>
+    `;
+  }
+
+  function normalizeQuestion(q){
+    return {question:q[0], correct:q[1], wrongs:q[2], explanation:q[3], encouragement:q[4]};
+  }
+
+  function buildQuiz(ch, serie, count){
+    const base = (serie==='A' ? ch.quizA : ch.quizB).map(normalizeQuestion);
+    const generic = (APP_DATA.genericQuestions[serie] || []).map(normalizeQuestion);
+    let pool = shuffle([...base, ...generic]);
+    while(pool.length < count){ pool = pool.concat(shuffle([...base, ...generic])); }
+    return pool.slice(0,count).map(q => ({...q, answers: shuffle([q.correct, ...q.wrongs])}));
+  }
+
+  function startQuiz(){
+    const serie = $('#serie').value;
+    const count = Number($('#count').value);
+    state.quiz = { questions: buildQuiz(state.activeChapter, serie, count), current:0, score:0, locked:false, selected:null, serie, count };
+    renderQuizQuestion();
+  }
+
+  function renderQuizQuestion(){
+    const qz = state.quiz;
+    if(qz.current >= qz.questions.length) return renderQuizEnd();
+    const q = qz.questions[qz.current];
+    $('#quizArea').innerHTML = `
+      <div class="question-box">
+        <div class="question-head"><span>Question ${qz.current+1} / ${qz.questions.length}</span><span>Score : ${qz.score}</span></div>
+        <p class="question-text">${escapeHtml(q.question)}</p>
+        <div class="answers">
+          ${q.answers.map(a=>`<button class="answer" onclick="answerQuestion(this, '${encodeURIComponent(a)}')">${escapeHtml(a)}</button>`).join('')}
+        </div>
+        <div class="feedback" id="feedback"></div>
+      </div>
+    `;
+    $('#quizArea').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  function answerQuestion(btn, encoded){
+    const qz = state.quiz;
+    if(qz.locked) return;
+    qz.locked = true;
+    const selected = decodeURIComponent(encoded);
+    const q = qz.questions[qz.current];
+    const good = selected === q.correct;
+    if(good) qz.score++;
+    document.querySelectorAll('.answer').forEach(b=>{
+      const val = b.textContent;
+      if(val === q.correct) b.classList.add('correct');
+      else if(b === btn) b.classList.add('wrong');
+    });
+    const feedback = $('#feedback');
+    feedback.classList.add('show');
+    feedback.innerHTML = `<strong>${good ? q.encouragement : 'Pas grave, tu progresses à chaque erreur.'}</strong><br>${escapeHtml(q.explanation)}<br><br><button class="btn primary small" onclick="nextQuestion()">Question suivante</button>`;
+  }
+
+  function nextQuestion(){state.quiz.current++; state.quiz.locked=false; renderQuizQuestion();}
+
+  function renderQuizEnd(){
+    const qz = state.quiz;
+    const pct = Math.round((qz.score/qz.questions.length)*100);
+    const ch = state.activeChapter;
+    const p = state.progress[ch.id] || {};
+    p.best = Math.max(p.best || 0, pct);
+    if(pct >= 70) p.completed = true;
+    state.progress[ch.id]=p; saveProgress();
+    let msg = pct >= 85 ? 'Excellent, tu peux viser très haut sur ce chapitre.' : pct >= 70 ? 'Chapitre validé, continue comme ça.' : pct >= 50 ? 'C’est encourageant, relis les notions puis retente.' : 'Reprends les flashcards puis refais une série de 5 questions.';
+    $('#quizArea').innerHTML = `
+      <div class="score-card">
+        <strong>${pct}%</strong>
+        <h3>${qz.score} bonne${qz.score>1?'s':''} réponse${qz.score>1?'s':''} sur ${qz.questions.length}</h3>
+        <p>${msg}</p>
+        <div class="toolbar" style="justify-content:center">
+          <button class="btn primary" onclick="startQuiz()">Refaire un QCM</button>
+          <button class="btn" onclick="renderChapter('${ch.id}','cards')">Revoir les flashcards</button>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderMethods(){
+    setActiveNav('methods');
+    screen.innerHTML = `
+      <div class="screen-title"><div><h2>🧠 Méthodes brevet</h2><p>Les réflexes à automatiser pour gagner des points le jour de l’épreuve.</p></div></div>
+      <div class="grid">${APP_DATA.methods.map(m=>`<article class="method-card"><div class="chapter-top"><div class="icon theme-method">${m.icon}</div><div><h3>${escapeHtml(m.title)}</h3><ul>${m.steps.map(s=>`<li>${escapeHtml(s)}</li>`).join('')}</ul></div></div></article>`).join('')}</div>
+    `;
+  }
+
+  function renderMarkers(){
+    setActiveNav('markers');
+    screen.innerHTML = `
+      <div class="screen-title"><div><h2>📍 Repères à connaître</h2><p>Une frise simple pour revoir les dates essentielles. Conseil : les réciter dans les deux sens.</p></div></div>
+      <div class="timeline">${APP_DATA.markers.map(([d,e])=>`<div class="timeline-item"><div class="date-pill">${escapeHtml(d)}</div><div><strong>${escapeHtml(e)}</strong></div></div>`).join('')}</div>
+    `;
+  }
+
+  // ===============================
+  // ASSISTANT RÉVISION LOCAL
+  // Sans API, sans clé, sans tokens : il cherche dans une base de réponses préparées.
+  // ===============================
+  const ASSISTANT_EXTRA = [
+    {
+      title:"Comment utiliser l’assistant révision ?",
+      keywords:["bonjour","salut","aide","assistant","comment utiliser","question","aidez moi"],
+      answer:["Je peux t’aider à retrouver une définition, une date, une méthode ou un chapitre de révision.","Écris par exemple : guerre froide, développement construit, croquis, laïcité, aire urbaine, Vichy, UE, Shoah, décolonisation ou repères."],
+      bullets:["Je ne suis pas une IA générative : mes réponses sont préparées et stockées dans l’application.","Avantage : ça marche sur GitHub Pages, gratuitement, sans compte et sans connexion à une API."]
+    },
+    {
+      title:"Méthode : réussir un développement construit",
+      keywords:["développement construit","developpement construit","rédaction","redaction","réponse longue","paragraphe","plan","introduction","conclusion","argumenter"],
+      answer:["Un développement construit doit répondre au sujet avec une réponse organisée, pas une liste d’idées."],
+      bullets:["Au brouillon : note 2 ou 3 grandes idées.","Introduction courte : reformule le sujet.","Développement : fais 2 ou 3 paragraphes, chacun avec une idée + un exemple précis.","Utilise des mots de liaison : d’abord, ensuite, enfin, cependant, donc.","Conclusion courte : réponds clairement au sujet."],
+      action:{type:"nav", target:"methods", label:"Ouvrir les méthodes"}
+    },
+    {
+      title:"Méthode : analyser un document",
+      keywords:["analyse document","analyser un document","document","source","auteur","nature","date","contexte","prélever","prelever","citation","questions document"],
+      answer:["Pour analyser un document, il faut combiner ce que tu vois dans le document et ce que tu sais grâce au cours."],
+      bullets:["Présente le document : nature, auteur, date, contexte, destinataire si possible.","Relève une information précise du document.","Explique cette information avec tes connaissances.","Réponds à la consigne sans recopier tout le document.","Utilise des expressions comme : le document montre que…, on peut l’expliquer par…"],
+      action:{type:"nav", target:"methods", label:"Voir la méthode document"}
+    },
+    {
+      title:"Méthode : faire un croquis ou un schéma de géographie",
+      keywords:["croquis","schema","schéma","carte","légende","legende","figurés","figures","flèches","fleches","titre","colorier"],
+      answer:["Un bon croquis est lisible, organisé et directement lié au sujet."],
+      bullets:["Donne un titre clair.","Construis une légende en 2 ou 3 parties.","Utilise des figurés simples : couleurs, points, hachures, flèches.","Évite de surcharger la carte.","Soigne l’écriture et les couleurs : la lisibilité compte beaucoup."],
+      action:{type:"nav", target:"methods", label:"Voir les méthodes"}
+    },
+    {
+      title:"Méthode : gérer les 2 heures d’épreuve",
+      keywords:["temps","2 heures","épreuve","epreuve","brevet","gestion du temps","combien de temps","organisation épreuve","organisation epreuve"],
+      answer:["À l’épreuve d’histoire-géographie-EMC, le piège est de passer trop de temps sur une seule question."],
+      bullets:["Lis tout le sujet au début.","Commence par ce que tu sais faire pour gagner des points rapidement.","Garde du temps pour la réponse longue ou le développement construit.","Relis les dates, noms propres et consignes.","Si tu bloques, passe à la suite puis reviens plus tard."],
+      action:{type:"nav", target:"methods", label:"Voir les méthodes brevet"}
+    },
+    {
+      title:"Méthode : apprendre les repères chronologiques",
+      keywords:["repères","reperes","dates","chronologie","frise","apprendre les dates","date importante","événement","evenement"],
+      answer:["Les repères doivent être appris dans les deux sens : date vers événement et événement vers date."],
+      bullets:["Fais des mini-cartes : recto = date, verso = événement.","Regroupe les dates par période : guerres mondiales, Guerre froide, construction européenne, République.","Récite 5 minutes par jour plutôt qu’une grosse session la veille.","Associe chaque date à une image mentale ou à une phrase simple."],
+      action:{type:"nav", target:"markers", label:"Ouvrir les repères"}
+    },
+    {
+      title:"EMC : répondre à une situation civique",
+      keywords:["emc","situation civique","valeurs","principes","droits","devoirs","que faire","réponse emc","reponse emc"],
+      answer:["En EMC, on attend une réponse responsable, argumentée et reliée aux valeurs de la République."],
+      bullets:["Identifie le problème : discrimination, harcèlement, liberté, laïcité, sécurité, engagement…","Cite les valeurs ou principes concernés : liberté, égalité, fraternité, laïcité, solidarité, démocratie.","Explique les droits et devoirs des personnes.","Propose une action légale, respectueuse et réaliste.","Évite les réponses purement émotionnelles : il faut argumenter."],
+      action:{type:"nav", target:"emc", label:"Ouvrir l’EMC"}
+    },
+    {
+      title:"Définition : guerre totale",
+      keywords:["guerre totale","mobilisation totale","économie de guerre","economie de guerre","arrière","arriere","civils militaires"],
+      answer:["Une guerre totale est une guerre qui mobilise toute la société : soldats, civils, économie, sciences, propagande et État."],
+      bullets:["Exemple : pendant la Première Guerre mondiale, les soldats combattent au front et les civils participent à l’effort de guerre à l’arrière.","À utiliser dans un sujet sur 1914-1918 ou sur la violence de masse."],
+      chapterId:"h1"
+    },
+    {
+      title:"Définition : violence de masse",
+      keywords:["violence de masse","violences de masse","massacre","brutalisation","verdun","tranchées","tranchees"],
+      answer:["La violence de masse désigne une violence extrême qui touche un très grand nombre de personnes, militaires ou civiles."],
+      bullets:["Exemples : les combats de Verdun, les bombardements, les gaz, les massacres de civils, le génocide des Arméniens.","Cette notion montre que la guerre transforme la manière de combattre et touche toute la société."],
+      chapterId:"h1"
+    },
+    {
+      title:"Définition : génocide arménien",
+      keywords:["génocide arménien","genocide armenien","arméniens","armeniens","empire ottoman","1915"],
+      answer:["Le génocide arménien est l’extermination organisée des Arméniens par l’Empire ottoman à partir de 1915."],
+      bullets:["C’est un exemple majeur de violence de masse contre des civils pendant la Première Guerre mondiale.","À retenir : 1915 et Empire ottoman."],
+      chapterId:"h1"
+    },
+    {
+      title:"Définition : totalitarisme",
+      keywords:["totalitarisme","totalitaire","staline","hitler","nazi","urss","propagande","terreur","culte du chef","parti unique"],
+      answer:["Un régime totalitaire cherche à contrôler totalement la société, la vie politique, l’économie, les idées et les individus."],
+      bullets:["Caractéristiques : parti unique, chef tout-puissant, propagande, terreur, police politique, embrigadement de la jeunesse.","Exemples : l’URSS de Staline et l’Allemagne nazie d’Hitler."],
+      chapterId:"h2"
+    },
+    {
+      title:"Repère : Front populaire",
+      keywords:["front populaire","1936","congés payés","conges payes","40 heures","blum","léon blum","leon blum"],
+      answer:["Le Front populaire arrive au pouvoir en France en 1936 avec Léon Blum."],
+      bullets:["Mesures importantes : congés payés, semaine de 40 heures, conventions collectives.","À utiliser pour montrer les réponses démocratiques à la crise des années 1930."],
+      chapterId:"h2"
+    },
+    {
+      title:"Définition : guerre d’anéantissement",
+      keywords:["guerre d’anéantissement","guerre d'aneantissement","aneantissement","anéantissement","seconde guerre mondiale","civils","shoah","bombe atomique"],
+      answer:["Une guerre d’anéantissement vise à détruire totalement l’ennemi, y compris les civils, les ressources et parfois des populations entières."],
+      bullets:["La Seconde Guerre mondiale est une guerre d’anéantissement à cause de la violence extrême, des bombardements, des massacres et des génocides.","Exemples : Shoah, massacres de civils, bombardements atomiques d’Hiroshima et Nagasaki."],
+      chapterId:"h3"
+    },
+    {
+      title:"Définition : Shoah",
+      keywords:["shoah","génocide juif","genocide juif","juifs","auschwitz","camps d’extermination","camps d'extermination","solution finale"],
+      answer:["La Shoah est le génocide des Juifs d’Europe organisé par l’Allemagne nazie pendant la Seconde Guerre mondiale."],
+      bullets:["Les Juifs sont persécutés, déportés puis assassinés dans des ghettos, fusillades de masse et camps d’extermination.","À retenir : environ 6 millions de Juifs assassinés."],
+      chapterId:"h3"
+    },
+    {
+      title:"Vichy, collaboration et Résistance",
+      keywords:["vichy","pétain","petain","collaboration","résistance","resistance","de gaulle","appel du 18 juin","18 juin","occupation"],
+      answer:["Après la défaite de 1940, la France est occupée. Le régime de Vichy dirigé par Pétain collabore avec l’Allemagne nazie, tandis que des résistants poursuivent le combat."],
+      bullets:["Pétain obtient les pleins pouvoirs en 1940 et met fin à la IIIe République.","La collaboration peut être politique, économique, policière et idéologique.","La Résistance intérieure et la France libre de De Gaulle combattent l’occupation."],
+      chapterId:"h4"
+    },
+    {
+      title:"Définition : Guerre froide",
+      keywords:["guerre froide","etats-unis","états-unis","urss","blocs","berlin","cuba","rideau de fer","monde bipolaire","1947 1991"],
+      answer:["La Guerre froide est une période de tensions entre les États-Unis et l’URSS de 1947 à 1991, sans guerre directe entre les deux superpuissances."],
+      bullets:["Le monde est bipolaire : bloc de l’Ouest autour des États-Unis et bloc de l’Est autour de l’URSS.","Les tensions passent par la propagande, l’armement, l’espace et des crises comme Berlin ou Cuba.","Repères : 1947 début de la Guerre froide, 1989 chute du mur de Berlin, 1991 disparition de l’URSS."],
+      chapterId:"h5"
+    },
+    {
+      title:"Définition : décolonisation",
+      keywords:["décolonisation","decolonisation","indépendance","independance","algérie","algerie","colonies","1962","empire colonial"],
+      answer:["La décolonisation est le processus par lequel des colonies deviennent indépendantes après la Seconde Guerre mondiale."],
+      bullets:["Elle peut se faire par négociation ou par guerre.","Exemple majeur : l’Algérie devient indépendante en 1962 après une guerre contre la France.","À relier au contexte de l’après-1945, à l’affaiblissement des puissances européennes et au droit des peuples à disposer d’eux-mêmes."],
+      chapterId:"h5"
+    },
+    {
+      title:"Construction européenne : CEE, UE, Maastricht",
+      keywords:["construction européenne","construction europeenne","cee","union européenne","ue","maastricht","traité de rome","traite de rome","1957","1992","euro"],
+      answer:["La construction européenne commence après la Seconde Guerre mondiale pour garantir la paix et renforcer la coopération entre États européens."],
+      bullets:["1957 : traité de Rome, création de la CEE.","1992 : traité de Maastricht, naissance de l’Union européenne.","2002 : mise en circulation de l’euro.","L’UE est une puissance économique mais reste composée d’États aux intérêts parfois différents."],
+      chapterId:"h5"
+    },
+    {
+      title:"La République française depuis 1918",
+      keywords:["république française","republique francaise","ve république","ve republique","cinquième république","1958","de gaulle","droit de vote des femmes","1944","alternance","cohabitation"],
+      answer:["La République française évolue au XXe siècle entre crises, réformes démocratiques et transformations sociales."],
+      bullets:["1944 : droit de vote des femmes.","1958 : naissance de la Ve République, avec un pouvoir exécutif renforcé.","La République repose sur le suffrage universel, les libertés, l’État de droit et la participation citoyenne."],
+      chapterId:"h6"
+    },
+    {
+      title:"Définition : aire urbaine",
+      keywords:["aire urbaine","ville","couronne périurbaine","periurbaine","périurbanisation","banlieue","migrations pendulaires","étalement urbain","etalement urbain"],
+      answer:["Une aire urbaine est un ensemble composé d’un pôle urbain, de sa banlieue et d’une couronne périurbaine dont les habitants travaillent souvent dans la ville-centre."],
+      bullets:["La périurbanisation désigne l’étalement de la ville vers les espaces ruraux proches.","Les migrations pendulaires sont les trajets quotidiens domicile-travail.","À utiliser pour expliquer la France urbaine et les mobilités."],
+      chapterId:"g1"
+    },
+    {
+      title:"Définition : métropolisation",
+      keywords:["métropolisation","metropolisation","métropole","metropole","paris","grandes villes","fonctions de commandement","mondialisation"],
+      answer:["La métropolisation est la concentration des populations, des activités et des fonctions de commandement dans les grandes villes."],
+      bullets:["Paris domine le réseau urbain français, mais d’autres métropoles comme Lyon, Marseille, Lille, Toulouse ou Bordeaux jouent un rôle important.","La métropolisation crée aussi des inégalités entre territoires attractifs et territoires plus fragiles."],
+      chapterId:"g1"
+    },
+    {
+      title:"Espaces productifs : agricole, industriel, services",
+      keywords:["espaces productifs","espace productif","industrie","agriculture","services","tourisme","technopôle","technopole","mondialisation","innovation"],
+      answer:["Un espace productif est un espace aménagé pour produire des richesses : agriculture, industrie ou services."],
+      bullets:["Les espaces agricoles se modernisent et s’intègrent aux marchés mondiaux.","Les espaces industriels se transforment avec l’innovation et les technopôles.","Les espaces de services, comme le tourisme ou les quartiers d’affaires, prennent une place majeure."],
+      chapterId:"g2"
+    },
+    {
+      title:"Espaces de faible densité",
+      keywords:["faible densité","faible densite","rural","campagnes","diagonale des faibles densités","diagonale des faibles densites","vieillissement","tourisme vert"],
+      answer:["Les espaces de faible densité sont des territoires peu peuplés, souvent ruraux, mais ils ne sont pas tous en difficulté."],
+      bullets:["Certains espaces souffrent d’isolement, de vieillissement et de manque de services.","D’autres sont attractifs grâce au tourisme, à la qualité de vie, aux résidences secondaires ou aux activités agricoles spécialisées.","Il faut éviter de dire que tous les espaces ruraux sont vides ou pauvres."],
+      chapterId:"g2"
+    },
+    {
+      title:"Aménager le territoire français",
+      keywords:["aménager le territoire","amenager le territoire","aménagement","amenagement","inégalités territoriales","inegalites territoriales","transports","services publics","collectivités","collectivites","acteurs"],
+      answer:["Aménager le territoire, c’est organiser et transformer l’espace pour réduire les inégalités, améliorer les mobilités, développer l’économie et protéger l’environnement."],
+      bullets:["Acteurs : État, collectivités territoriales, Union européenne, entreprises, habitants.","Objectifs : mieux connecter les territoires, réduire les inégalités, créer des emplois, protéger les milieux.","Exemples : lignes de transport, rénovation urbaine, zones d’activités, équipements publics."],
+      chapterId:"g3"
+    },
+    {
+      title:"La France et l’Union européenne dans le monde",
+      keywords:["france dans le monde","ue dans le monde","union européenne","puissance","influence","drom","outre-mer","zee","zone économique exclusive","frontières","mondialisation"],
+      answer:["La France et l’Union européenne sont des acteurs importants du monde, mais leur puissance est contrastée."],
+      bullets:["La France possède une influence diplomatique, militaire, culturelle et maritime grâce aux outre-mer et à sa ZEE.","L’Union européenne est une grande puissance économique et commerciale.","Mais l’UE a parfois des difficultés à parler d’une seule voix sur la scène internationale."],
+      chapterId:"g4"
+    },
+    {
+      title:"Valeurs, principes et symboles de la République",
+      keywords:["liberté","egalité","égalité","fraternité","fraternite","laïcité","laicite","république","republique","marianne","drapeau","marseillaise","devise","symboles"],
+      answer:["La République française repose sur des valeurs, des principes et des symboles communs."],
+      bullets:["Valeurs : liberté, égalité, fraternité.","Principes : démocratie, laïcité, indivisibilité, République sociale.","Symboles : drapeau tricolore, Marseillaise, Marianne, devise, 14 juillet.","La laïcité garantit la liberté de conscience et la neutralité de l’État."],
+      chapterId:"e1"
+    },
+    {
+      title:"Engagement, défense et citoyenneté",
+      keywords:["engagement","citoyen","citoyenneté","citoyennete","association","vote","défense nationale","defense nationale","jdc","droits et devoirs","solidarité","solidarite"],
+      answer:["Être citoyen, ce n’est pas seulement avoir des droits : c’est aussi participer à la vie collective et respecter des devoirs."],
+      bullets:["Formes d’engagement : vote, association, bénévolat, débat, conseil municipal des jeunes, service civique.","Devoirs : respecter la loi, les autres, les biens publics et les valeurs démocratiques.","La défense nationale protège le territoire, la population, les institutions et les intérêts du pays."],
+      chapterId:"e2"
+    },
+    {
+      title:"Conseil : faire une fiche de révision efficace",
+      keywords:["fiche","faire une fiche","réviser","reviser","apprendre","mémoriser","memoriser","méthode de révision","methode revision"],
+      answer:["Une bonne fiche n’est pas une copie du cours : c’est une version courte, organisée et facile à relire."],
+      bullets:["Mets le titre du chapitre et 3 à 5 idées essentielles.","Ajoute les définitions obligatoires.","Note 2 ou 3 dates/exemples précis.","Prépare une mini phrase de développement construit.","Termine par 3 questions pour te tester."],
+      action:{type:"nav", target:"methods", label:"Voir les méthodes"}
+    }
+  ];
+
+  const ASSISTANT_STOPWORDS = new Set('alors apres avec avoir cette dans des du elle elles est et faire faut ils les leur mais mes mon nous pas plus pour que qui quoi sans ses son sur tout très tres une vos vous aux au de d l la le un en y a me ce ca ça c comment pourquoi peux peut peux-tu peux tu svp stp'.split(' '));
+
+  function normalizeText(str){
+    return String(str || '')
+      .toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+      .replace(/[’']/g,' ')
+      .replace(/[^a-z0-9]+/g,' ')
+      .replace(/\s+/g,' ')
+      .trim();
+  }
+
+  function assistantTokens(text){
+    return normalizeText(text).split(' ').filter(t => t.length > 2 && !ASSISTANT_STOPWORDS.has(t));
+  }
+
+  function buildAssistantIndex(){
+    const entries = [];
+    ASSISTANT_EXTRA.forEach((item, idx) => {
+      entries.push({
+        id:'extra-'+idx,
+        type:'extra',
+        title:item.title,
+        keywords:item.keywords || [],
+        answer:item.answer || [],
+        bullets:item.bullets || [],
+        chapterId:item.chapterId || null,
+        action:item.action || null,
+        searchText:[item.title, ...(item.keywords||[]), ...(item.answer||[]), ...(item.bullets||[])].join(' ')
+      });
+    });
+
+    APP_DATA.chapters.forEach(ch => {
+      entries.push({
+        id:'chapter-'+ch.id,
+        type:'chapter',
+        title:'Chapitre : '+ch.title,
+        keywords:[ch.title, ...ch.keywords, ...ch.cards.map(c=>c[0])],
+        answer:[ch.intro],
+        bullets:ch.summary,
+        chapterId:ch.id,
+        searchText:[ch.title, ch.intro, ...ch.keywords, ...ch.summary, ...ch.cards.flat()].join(' ')
+      });
+      ch.cards.forEach((card, i) => {
+        entries.push({
+          id:'card-'+ch.id+'-'+i,
+          type:'definition',
+          title:'Définition : '+card[0],
+          keywords:[card[0], ch.title, ...ch.keywords],
+          answer:[card[1]],
+          bullets:[],
+          chapterId:ch.id,
+          searchText:[card[0], card[1], ch.title, ...ch.keywords].join(' ')
+        });
+      });
+    });
+
+    APP_DATA.methods.forEach((m, i) => {
+      entries.push({
+        id:'method-'+i,
+        type:'method',
+        title:'Méthode : '+m.title,
+        keywords:[m.title, ...m.steps],
+        answer:['Voici la méthode à appliquer :'],
+        bullets:m.steps,
+        action:{type:'nav', target:'methods', label:'Ouvrir les méthodes'},
+        searchText:[m.title, ...m.steps].join(' ')
+      });
+    });
+
+    APP_DATA.markers.forEach((mk, i) => {
+      entries.push({
+        id:'marker-'+i,
+        type:'marker',
+        title:'Repère : '+mk[0],
+        keywords:[mk[0], mk[1], 'date', 'repere', 'chronologie'],
+        answer:[mk[0]+' : '+mk[1]+'.'],
+        bullets:['À apprendre dans les deux sens : date → événement et événement → date.'],
+        action:{type:'nav', target:'markers', label:'Voir tous les repères'},
+        searchText:[mk[0], mk[1], 'date repere chronologie'].join(' ')
+      });
+    });
+    return entries;
+  }
+
+  function scoreAssistantEntry(entry, queryNorm, tokens){
+    const titleNorm = normalizeText(entry.title);
+    const hay = normalizeText(entry.searchText || '');
+    let score = 0;
+    if(!tokens.length) return 0;
+    if(titleNorm && queryNorm.includes(titleNorm.replace(/^(definition|chapitre|methode|repere) /,''))) score += 15;
+    (entry.keywords || []).forEach(k => {
+      const nk = normalizeText(k);
+      if(!nk) return;
+      if(queryNorm === nk) score += 18;
+      else if(queryNorm.includes(nk) || nk.includes(queryNorm)) score += Math.min(12, 3 + nk.split(' ').length * 2);
+    });
+    tokens.forEach(t => {
+      if(titleNorm.includes(t)) score += 4;
+      if(hay.includes(t)) score += 1.4;
+      (entry.keywords || []).forEach(k => { if(normalizeText(k).includes(t)) score += 1.2; });
+    });
+    return score;
+  }
+
+  function getAssistantAnswer(query){
+    const queryNorm = normalizeText(query);
+    const tokens = assistantTokens(query);
+    if(!queryNorm || tokens.length === 0){
+      return {
+        title:'Je peux t’aider à réviser',
+        answer:['Écris une notion, une date, un chapitre ou une méthode. Exemple : Guerre froide, développement construit, croquis, laïcité, aire urbaine, Shoah, Vichy, UE.'],
+        bullets:['Tu peux aussi cliquer sur les aides rapides sous la zone de saisie.']
+      };
+    }
+
+    if(queryNorm.includes('toutes les dates') || queryNorm.includes('liste dates') || queryNorm.includes('repere') || queryNorm.includes('reperes')){
+      return {
+        title:'Repères essentiels à connaître',
+        answer:['Voici les grands repères intégrés dans l’application :'],
+        bullets:APP_DATA.markers.map(m => m[0]+' — '+m[1]),
+        action:{type:'nav', target:'markers', label:'Ouvrir la frise des repères'}
+      };
+    }
+
+    if(queryNorm.includes('chapitres') || queryNorm.includes('programme')){
+      return {
+        title:'Chapitres disponibles dans l’application',
+        answer:['L’application est organisée en histoire, géographie, EMC, méthodes et repères.'],
+        bullets:APP_DATA.chapters.map(ch => ch.title),
+        action:{type:'nav', target:'home', label:'Retour à l’accueil'}
+      };
+    }
+
+    const entries = buildAssistantIndex()
+      .map(e => ({...e, score:scoreAssistantEntry(e, queryNorm, tokens)}))
+      .filter(e => e.score > 0)
+      .sort((a,b)=>b.score-a.score);
+
+    if(!entries.length || entries[0].score < 3){
+      return {
+        title:'Je n’ai pas trouvé de réponse précise',
+        answer:['Essaie avec un mot-clé plus court ou plus proche du cours.'],
+        bullets:['Exemples : guerre froide, aire urbaine, Vichy, Shoah, laïcité, croquis, développement construit, repères.', 'Tu peux aussi ouvrir un chapitre et utiliser ses flashcards.'],
+        action:{type:'nav', target:'home', label:'Voir le menu'}
+      };
+    }
+
+    const best = entries[0];
+    const related = entries.slice(1,4).filter(e => e.score >= Math.max(3, best.score * 0.45));
+    const answer = {
+      title:best.title,
+      answer:best.answer,
+      bullets:best.bullets,
+      chapterId:best.chapterId,
+      action:best.action,
+      related:related.map(e => ({title:e.title, chapterId:e.chapterId, action:e.action}))
+    };
+    return answer;
+  }
+
+  function renderAssistantAnswer(ans){
+    const paras = (ans.answer || []).map(p => `<p>${escapeHtml(p)}</p>`).join('');
+    const bullets = (ans.bullets || []).length ? `<ul>${ans.bullets.map(b=>`<li>${escapeHtml(b)}</li>`).join('')}</ul>` : '';
+    const actions = [];
+    if(ans.chapterId){
+      actions.push(`<button class="assistant-action" data-open-chapter="${escapeHtml(ans.chapterId)}">Ouvrir le chapitre</button>`);
+    }
+    if(ans.action?.type === 'nav'){
+      actions.push(`<button class="assistant-action" data-assistant-nav="${escapeHtml(ans.action.target)}">${escapeHtml(ans.action.label || 'Ouvrir')}</button>`);
+    }
+    const related = (ans.related || []).length ? `<div class="assistant-sources"><strong>À revoir aussi :</strong> ${ans.related.map(r => escapeHtml(r.title)).join(' • ')}</div>` : '';
+    return `<h3>${escapeHtml(ans.title)}</h3>${paras}${bullets}${actions.length ? `<div class="assistant-actions">${actions.join('')}</div>` : ''}${related}`;
+  }
+
+  function renderAssistant(){
+    setActiveNav('assistant');
+    state.view = 'assistant';
+    if(!state.assistantHistory.length){
+      state.assistantHistory.push({role:'bot', html:renderAssistantAnswer(getAssistantAnswer('aide'))});
+    }
+    screen.innerHTML = `
+      <div class="screen-title">
+        <div><h2>💬 Assistant révision local</h2><p>Pose une question simple sur le brevet. L’assistant cherche dans les chapitres, définitions, méthodes et repères de l’application.</p></div>
+        <button class="btn small" onclick="clearAssistant()">Effacer le chat</button>
+      </div>
+      <div class="assistant-shell">
+        <section class="assistant-panel">
+          <div class="assistant-messages" id="assistantMessages"></div>
+          <div class="assistant-input">
+            <input id="assistantInput" type="text" placeholder="Ex : Explique-moi la Guerre froide" autocomplete="off" />
+            <button class="btn primary" onclick="sendAssistant()">Envoyer</button>
+          </div>
+          <div class="quick-help">
+            <button data-quick="développement construit">Développement construit</button>
+            <button data-quick="repères chronologiques">Repères</button>
+            <button data-quick="guerre froide">Guerre froide</button>
+            <button data-quick="aire urbaine">Aire urbaine</button>
+            <button data-quick="laïcité">Laïcité</button>
+            <button data-quick="croquis de géographie">Croquis</button>
+            <button data-quick="Shoah">Shoah</button>
+            <button data-quick="Vichy collaboration résistance">Vichy/Résistance</button>
+            <button data-quick="Union européenne">Union européenne</button>
+            <button data-quick="aménager le territoire">Aménagement</button>
+          </div>
+        </section>
+        <aside class="assistant-side">
+          <article class="card"><h3>Ce que l’assistant sait faire</h3><p>Définitions, dates, méthodes, conseils de rédaction, repères, notions d’histoire, géographie et EMC.</p></article>
+          <article class="card"><h3>Important</h3><p>Ce chat est local : pas d’API, pas de compte, pas de tokens. Il ne génère pas librement : il retrouve les réponses préparées dans l’application.</p></article>
+          <article class="card"><h3>Astuce</h3><p>Écris des mots-clés courts. Exemple : “guerre totale” marche mieux que “j’ai pas compris le truc avec les soldats”.</p></article>
+        </aside>
+      </div>
+    `;
+    renderAssistantMessages();
+    const input = $('#assistantInput');
+    input.addEventListener('keydown', e => { if(e.key === 'Enter') sendAssistant(); });
+    document.querySelectorAll('[data-quick]').forEach(b => b.addEventListener('click', () => assistantQuick(b.dataset.quick)));
+  }
+
+  function renderAssistantMessages(){
+    const box = $('#assistantMessages');
+    if(!box) return;
+    box.innerHTML = state.assistantHistory.map(m => {
+      if(m.role === 'user') return `<div class="msg user"><div class="bubble">${escapeHtml(m.text)}</div></div>`;
+      return `<div class="msg bot"><div class="bubble">${m.html}</div></div>`;
+    }).join('');
+    box.querySelectorAll('[data-open-chapter]').forEach(b => b.addEventListener('click', () => openChapter(b.dataset.openChapter)));
+    box.querySelectorAll('[data-assistant-nav]').forEach(b => b.addEventListener('click', () => navigate(b.dataset.assistantNav)));
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function sendAssistant(){
+    const input = $('#assistantInput');
+    if(!input) return;
+    const text = input.value.trim();
+    if(!text) return;
+    state.assistantHistory.push({role:'user', text});
+    const answer = getAssistantAnswer(text);
+    state.assistantHistory.push({role:'bot', html:renderAssistantAnswer(answer)});
+    input.value = '';
+    renderAssistantMessages();
+  }
+
+  function assistantQuick(text){
+    const input = $('#assistantInput');
+    if(input) input.value = text;
+    sendAssistant();
+  }
+
+  function clearAssistant(){
+    state.assistantHistory = [];
+    renderAssistant();
+  }
+
+  window.navigate = navigate;
+  window.openChapter = openChapter;
+  window.renderChapter = renderChapter;
+  window.flipCard = flipCard;
+  window.nextCard = nextCard;
+  window.prevCard = prevCard;
+  window.startQuiz = startQuiz;
+  window.answerQuestion = answerQuestion;
+  window.nextQuestion = nextQuestion;
+  window.sendAssistant = sendAssistant;
+  window.assistantQuick = assistantQuick;
+  window.clearAssistant = clearAssistant;
+
+  init();
+  </script>
+</body>
+</html>
